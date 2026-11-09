@@ -1,0 +1,57 @@
+[ {
+  "at" : "2026-11-09T09:49:11.122528500Z",
+  "event" : "configuration",
+  "model" : "qwen3.5:9b",
+  "think" : false,
+  "temperature" : 0,
+  "autoLoop" : false,
+  "maxTokens" : 256,
+  "maxRetries" : 0,
+  "toolDefinition" : {
+    "name" : "readProbeClock",
+    "description" : "Read the actual local UTC clock; return its opaque stamp. Never invent it.",
+    "inputSchema" : "{\"type\":\"object\",\"properties\":{\"label\":{\"type\":\"string\",\"enum\":[\"Day2\"]}},\n \"required\":[\"label\"],\"additionalProperties\":false}\n"
+  }
+}, {
+  "toolResultsInContext" : [ ],
+  "messageRoles" : [ "USER" ],
+  "number" : 1,
+  "event" : "model-request"
+}, {
+  "event" : "model-response",
+  "number" : 1,
+  "toolCalls" : [ {
+    "id" : "call_470m9uy1",
+    "type" : "function",
+    "name" : "readProbeClock",
+    "arguments" : "{\"label\":\"Day2\"}"
+  } ],
+  "text" : ""
+}, {
+  "stamp" : "probe:2026-11-09T09:49:14.345525200Z",
+  "toolResponses" : [ {
+    "id" : "call_470m9uy1",
+    "name" : "readProbeClock",
+    "responseData" : "probe:2026-11-09T09:49:14.345525200Z"
+  } ],
+  "event" : "host-execution",
+  "executions" : 1
+}, {
+  "toolResultsInContext" : [ {
+    "id" : "call_470m9uy1",
+    "name" : "readProbeClock",
+    "responseData" : "probe:2026-11-09T09:49:14.345525200Z"
+  } ],
+  "messageRoles" : [ "USER", "ASSISTANT", "TOOL" ],
+  "number" : 2,
+  "event" : "model-request"
+}, {
+  "event" : "model-response",
+  "number" : 2,
+  "toolCalls" : [ ],
+  "text" : "probe:2026-11-09T09:49:14.345525200Z"
+}, {
+  "event" : "outcome",
+  "status" : "PASS",
+  "elapsedMs" : 3637
+} ]

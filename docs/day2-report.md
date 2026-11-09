@@ -28,7 +28,26 @@
 
 基础配置/文档不伪造 Red；本阶段没有实现解析、知识匹配、业务预算、报告校验或错误映射。上述后续核心逻辑仍须各自执行 TDD。
 
-## 真实 ChatClient 闭环证据
+## 2026-11-09 显式类型规范修正
+
+- Specification / Design / Tasks：按用户要求补充长期编码规范，在 T2/T3 当前交付内检查全部 Java 源码；仅替换类型声明及添加导入，不改变已验收产品需求、架构、固定版本或测试断言。
+- AGENTS.md 新增长期规则：Java 局部变量必须使用显式类型，禁止 `var`；生产与测试代码均适用，后续自主开发和 Review 持续遵守，无需重复提醒。
+- 检查全部 5 个 Java 文件，修正 ApplicationSmokeTest（1 处）、ProbeSupport（1 处）、ChatClientWiringTest（11 处）、OllamaProbeTest（23 处），合计 36 处；生产入口没有违规。
+- Red：不适用，本次为无行为变更的类型声明修正，不新增核心确定性逻辑或人为制造业务断言失败。修正前静态扫描发现上述 36 处违规。
+- Green / 最终验证：`mvn -B -ntp verify` 成功，4 个测试源码全部重新编译，2 个确定性测试通过，0 失败/错误/跳过；日志 `target/day2-explicit-types-verify.log`。`rg -n '\bvar\b' src --glob '*.java'` 无匹配（退出码 1 为正常零命中）。
+- Review：逐项核对显式类型与原表达式及泛型匹配，测试断言和执行流程保持不变；`git diff --check` 通过。未增加依赖或生产工具。
+- CI / 风险：本次未提交、推送或触发远程 CI；下文原提交 CI 成功是历史结果，不代表本次修正已通过远程 CI。真实 Ollama 探针本次仅编译、未执行；本地确定性回归已通过。Day 2 修正后重新待验收，未进入 Day 3。
+
+## 显式类型修正补充复验与推送（2026-11-09）
+
+- 用户明确授权提交、推送此次修改并运行远程 CI、重跑真实模型探针；范围仍为 Day 2 T2/T3。
+- `mvn -B -ntp -Pollama-it verify`：3 测试、0 失败/错误/跳过；日志 `target/day2-explicit-types-ollama.log`。仅执行一次真实探针，无失败重试或舍弃样本。
+- [本次真实探针原始证据](evidence/day2-explicit-types-ollama-probe.json)：首轮结构化调用 `call_470m9uy1` / `readProbeClock` / `{"label":"Day2"}`，宿主真实执行 1 次，结果 `probe:2026-11-09T09:49:14.345525200Z` 回传至第二轮上下文，最终正文完全一致。2 次模型请求，耗时 3,637 ms，PASS。
+- 最终 `mvn -B -ntp verify`：2 测试、0 失败/错误/跳过；默认集合排除真实模型，日志 `target/day2-explicit-types-final-verify.log`。
+- Review：36 处类型替换未改变测试断言或流程；全源码 `var` 零命中，`git diff --check` 通过。Red 不适用（无行为变更）。
+- 远程 CI：待此次提交推送后读取实际运行结果；此前“未提交/未复跑”描述为上次交付时的历史状态。
+
+## 真实 ChatClient 闭环证据（原阶段记录）
 
 原始结构化记录见 [day2-ollama-probe.json](evidence/day2-ollama-probe.json)。测试再次执行会在 `target/ollama-probe-evidence.json` 生成新记录，不自动覆盖本次归档。
 

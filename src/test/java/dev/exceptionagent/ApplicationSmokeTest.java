@@ -21,7 +21,7 @@ class ApplicationSmokeTest {
 
     @Test
     void startsWithoutOllamaAndBindsFixedModelSettings() {
-        var options = (OllamaChatOptions) context.getBean(OllamaChatModel.class).getOptions();
+        OllamaChatOptions options = (OllamaChatOptions) context.getBean(OllamaChatModel.class).getOptions();
         assertThat(context.getBean(ChatClient.Builder.class)).isNotNull();
         assertThat(options.getModel()).isEqualTo("qwen3.5:9b");
         assertThat(options.getTemperature()).isEqualTo(0.0);

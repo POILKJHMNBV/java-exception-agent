@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.AssistantMessage;
+import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.ToolResponseMessage;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -15,35 +17,36 @@ import org.springframework.ai.chat.model.Generation;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.model.tool.ToolCallingChatOptions;
 import org.springframework.ai.model.tool.ToolCallingManager;
+import org.springframework.ai.model.tool.ToolExecutionResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ChatClientWiringTest {
     @Test
     void callerControlsExecutionAndReturnsActualToolResultToModel() {
-        var probe = new ProbeSupport.ClockProbe(Clock.fixed(Instant.parse("2026-11-09T00:00:00Z"), ZoneOffset.UTC));
-        var model = new ScriptedModel();
-        var client = ProbeSupport.client(model);
-        var prompt = ProbeSupport.prompt(probe);
+        ProbeSupport.ClockProbe probe = new ProbeSupport.ClockProbe(Clock.fixed(Instant.parse("2026-11-09T00:00:00Z"), ZoneOffset.UTC));
+        ScriptedModel model = new ScriptedModel();
+        ChatClient client = ProbeSupport.client(model);
+        Prompt prompt = ProbeSupport.prompt(probe);
 
-        var first = client.prompt(prompt).call().chatResponse();
+        ChatResponse first = client.prompt(prompt).call().chatResponse();
         assertThat(model.prompts).as("automatic model loop is disabled").hasSize(1);
         assertThat(probe.executions()).as("host has not authorized execution yet").isZero();
         assertThat(first).isNotNull();
         assertThat(first.getResult().getOutput().getToolCalls()).containsExactly(
                 new AssistantMessage.ToolCall("scripted-1", "function", "readProbeClock", "{\"label\":\"Day2\"}"));
 
-        var executed = ToolCallingManager.builder().build().executeToolCalls(prompt, first);
+        ToolExecutionResult executed = ToolCallingManager.builder().build().executeToolCalls(prompt, first);
         assertThat(probe.executions()).isEqualTo(1);
         assertThat(executed.returnDirect()).isFalse();
-        var history = executed.conversationHistory();
+        List<Message> history = executed.conversationHistory();
         assertThat(history).hasSize(3);
         assertThat(history.get(1)).isEqualTo(first.getResult().getOutput());
-        var resultMessage = (ToolResponseMessage) history.get(2);
+        ToolResponseMessage resultMessage = (ToolResponseMessage) history.get(2);
         assertThat(resultMessage.getResponses()).containsExactly(
                 new ToolResponseMessage.ToolResponse("scripted-1", "readProbeClock", probe.stamp()));
 
-        var last = client.prompt(new Prompt(history, prompt.getOptions())).call().chatResponse();
+        ChatResponse last = client.prompt(new Prompt(history, prompt.getOptions())).call().chatResponse();
         assertThat(model.prompts).hasSize(2);
         assertThat(model.prompts.get(1).getInstructions()).containsExactlyElementsOf(history);
         assertThat(last).isNotNull();
@@ -72,8 +75,8 @@ class ChatClientWiringTest {
                         .toolCalls(List.of(new AssistantMessage.ToolCall("scripted-1", "function",
                                 "readProbeClock", "{\"label\":\"Day2\"}"))).build())));
             }
-            var messages = prompt.getInstructions();
-            var toolResult = (ToolResponseMessage) messages.get(messages.size() - 1);
+            List<Message> messages = prompt.getInstructions();
+            ToolResponseMessage toolResult = (ToolResponseMessage) messages.get(messages.size() - 1);
             return new ChatResponse(List.of(new Generation(new AssistantMessage(
                     toolResult.getResponses().get(0).responseData()))));
         }

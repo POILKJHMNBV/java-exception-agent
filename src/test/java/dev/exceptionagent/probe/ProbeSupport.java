@@ -11,6 +11,7 @@ import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.model.tool.ToolCallingChatOptions;
 import org.springframework.ai.tool.ToolCallback;
 import org.springframework.ai.tool.definition.ToolDefinition;
+import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 
 /** Test-only read-only probe; never a production tool or bean. */
@@ -49,7 +50,7 @@ final class ProbeSupport {
 
         @Override
         public String call(String input) {
-            var args = JsonMapper.builder().build().readTree(input);
+            JsonNode args = JsonMapper.builder().build().readTree(input);
             if (!args.isObject() || args.size() != 1 || !"Day2".equals(args.path("label").asString())) {
                 throw new IllegalArgumentException("Invalid probe arguments");
             }
