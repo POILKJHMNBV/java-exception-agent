@@ -50,8 +50,8 @@
 
 ## CI、偏差与下一步
 
-- 本地默认验证通过；用户已明确授权提交、推送本次 Day 3 修改并运行远程 CI，待推送后核验本次实际结果；Day 2 的成功 CI 不代表本次变更。
-- AGENTS.md 已按用户要求更新：后续每次完成本地工作后默认等待用户验收，不自动提交、推送或运行远程 CI；当次明确授权仅适用于当次。Day 3 本地成果已待验收，本次授权的远程 CI 继续单独跟踪。
+- 本地默认验证通过；按用户当次授权，Day 3 提交 `7bc2efd2bd4b4948f7f99ac9575ed9f701ae9e12` 已推送至 `origin/master`。[真实 CI 42647624769](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42647624769) 为 completed / success，固定 Maven 安装/版本校验、无 Ollama 的 verify、报告上传步骤均通过；[原始状态与步骤归档](evidence/day3/day3-ci-run.json)。
+- AGENTS.md 已按用户要求更新：后续每次完成本地工作后默认等待用户验收，不自动提交、推送或运行远程 CI；当次明确授权仅适用于当次。Day 3 已完成本次授权范围，等待用户验收。
 - 未修改已验收规格或架构。保守解析会对损坏缩进、拼接堆栈、隐藏类等非支持结构给出警告；默认包下不以 Exception/Error/Throwable 结尾的自定义类型不推断为异常。知识仅覆盖三类异常；模型编排与 HTTP/报告规则尚在后续阶段。
 - Day 4 仍为待开始，必须在 Day 3 人工验收并另获启动授权后执行。
 

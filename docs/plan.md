@@ -8,7 +8,7 @@
 | --- | --- | --- | --- |
 | Day 1 | T1 | 已验收 | 用户于 2026-11-09 明确表示“Day 1 已验收通过” |
 | Day 2 | T2、T3 | 已验收 | 用户于 2026-11-09 明确表示“Day2我验收通过，现在进行Day3” |
-| Day 3 | T4、T5 | 待验收 | 2026-11-09 注释与证据归档修正完成，本地 verify 71/71；用户已授权本次提交/推送/远程 CI，结果另行记录；等待人工验收，不进入 Day 4 |
+| Day 3 | T4、T5 | 待验收 | 2026-11-09 注释与证据归档修正完成，本地 verify 71/71；已按本次授权提交推送，远程 CI 42647624769 通过；等待人工验收，不进入 Day 4 |
 | Day 4 | T6 | 待开始 | 等待前阶段人工验收及启动授权 |
 | Day 5 | T7 | 待开始 | 等待前阶段人工验收及启动授权 |
 | Day 6 | T8 | 待开始 | 等待前阶段人工验收及启动授权 |
@@ -30,7 +30,7 @@
 - Review：范围、证据行号、只读数据边界、资源关闭、请求状态隔离、Java 显式类型检查通过；本阶段不实现 Day 4 预算/超时调度或 Day 5 HTTP/报告，不声称业务工具调用闭环已通过。
 - 2026-11-09 用户要求的修正：10 份证据按所属阶段迁入 `docs/evidence/day2/`、`docs/evidence/day3/`，内容 SHA-256 保持一致；同步文档链接。11 个 Java 文件补充中文 Javadoc 和关键片段注释，修改前后非注释词法序列完全一致。AGENTS.md 固化注释、证据归档及先验收再授权提交/推送/远程 CI 的默认规则。
 - 注释修正后 `mvn -B -ntp verify`：2026-11-09 23:39（Asia/Shanghai），71/71，0 失败/错误/跳过；[日志](evidence/day3/day3-comments-verify.log)。本次无业务行为变更，不新增无意义 Red；原 T4/T5 Red/Green 证据保留。
-- 本次真实 GitHub Actions CI：已获得用户当次授权，待提交推送后核验；不使用 Day 2 旧结果代替。详情与日志见 [Day 3 交付记录](day3-report.md)。
+- 本次真实 GitHub Actions CI：提交 `7bc2efd2bd4b4948f7f99ac9575ed9f701ae9e12` 已推送到 `origin/master`，[CI 42647624769](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42647624769) 实际 completed / success，Maven 3.8.4 版本校验及无 Ollama 的 verify 步骤通过；[归档证据](evidence/day3/day3-ci-run.json)。详情与日志见 [Day 3 交付记录](day3-report.md)。
 
 ### Day 2 执行范围（2026-11-09）
 
