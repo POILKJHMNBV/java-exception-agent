@@ -1,0 +1,57 @@
+[ {
+  "maxTokens" : 256,
+  "maxRetries" : 0,
+  "toolDefinition" : {
+    "name" : "readProbeClock",
+    "description" : "Read the actual local UTC clock; return its opaque stamp. Never invent it.",
+    "inputSchema" : "{\"type\":\"object\",\"properties\":{\"label\":{\"type\":\"string\",\"enum\":[\"Day2\"]}},\n \"required\":[\"label\"],\"additionalProperties\":false}\n"
+  },
+  "at" : "2026-11-09T09:18:28.366394Z",
+  "event" : "configuration",
+  "model" : "qwen3.5:9b",
+  "think" : false,
+  "temperature" : 0,
+  "autoLoop" : false
+}, {
+  "event" : "model-request",
+  "toolResultsInContext" : [ ],
+  "messageRoles" : [ "USER" ],
+  "number" : 1
+}, {
+  "event" : "model-response",
+  "number" : 1,
+  "toolCalls" : [ {
+    "id" : "call_d441fnxg",
+    "type" : "function",
+    "name" : "readProbeClock",
+    "arguments" : "{\"label\":\"Day2\"}"
+  } ],
+  "text" : ""
+}, {
+  "event" : "host-execution",
+  "executions" : 1,
+  "stamp" : "probe:2026-11-09T09:18:31.586134600Z",
+  "toolResponses" : [ {
+    "id" : "call_d441fnxg",
+    "name" : "readProbeClock",
+    "responseData" : "probe:2026-11-09T09:18:31.586134600Z"
+  } ]
+}, {
+  "event" : "model-request",
+  "toolResultsInContext" : [ {
+    "id" : "call_d441fnxg",
+    "name" : "readProbeClock",
+    "responseData" : "probe:2026-11-09T09:18:31.586134600Z"
+  } ],
+  "messageRoles" : [ "USER", "ASSISTANT", "TOOL" ],
+  "number" : 2
+}, {
+  "event" : "model-response",
+  "number" : 2,
+  "toolCalls" : [ ],
+  "text" : "probe:2026-11-09T09:18:31.586134600Z"
+}, {
+  "elapsedMs" : 3641,
+  "event" : "outcome",
+  "status" : "PASS"
+} ]

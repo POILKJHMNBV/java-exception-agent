@@ -1,0 +1,52 @@
+name: deterministic-tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Install Maven 3.8.4
+        shell: bash
+        run: |
+          set -euo pipefail
+          archive=apache-maven-3.8.4-bin.tar.gz
+          base=https://archive.apache.org/dist/maven/maven-3/3.8.4/binaries
+          cd "$RUNNER_TEMP"
+          curl --fail --silent --show-error --location --max-time 120 -O "$base/$archive"
+          curl --fail --silent --show-error --location --max-time 120 -O "$base/$archive.sha512"
+          expected=$(awk '{print $1}' "$archive.sha512")
+          printf '%s  %s\n' "$expected" "$archive" | sha512sum --check -
+          tar -xzf "$archive"
+          echo "$RUNNER_TEMP/apache-maven-3.8.4/bin" >> "$GITHUB_PATH"
+      - name: Print and check tool versions
+        shell: bash
+        run: |
+          set -euo pipefail
+          java -version
+          javac -version
+          mvn -version
+          mvn -version | grep -F 'Apache Maven 3.8.4'
+          javac -version 2>&1 | grep -E '^javac 17\.'
+      - name: Verify without Ollama
+        run: mvn -B -ntp verify
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: target/surefire-reports/
+          if-no-files-found: warn

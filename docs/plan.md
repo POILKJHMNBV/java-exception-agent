@@ -1,5 +1,34 @@
 # Java Exception Agent：一周执行计划
 
+## 阶段状态与人工门禁
+
+状态规则见 [AGENTS.md](../AGENTS.md)。阶段状态与测试结果分开；仅用户能确认已验收。
+
+| 阶段 | 任务 | 状态 | 人工验收/执行依据 |
+| --- | --- | --- | --- |
+| Day 1 | T1 | 已验收 | 用户于 2026-11-09 明确表示“Day 1 已验收通过” |
+| Day 2 | T2、T3 | 进行中 | 用户于 2026-11-09 授权配置门禁后自动执行下一阶段 |
+| Day 3 | T4、T5 | 待开始 | 等待 Day 2 人工验收及启动授权 |
+| Day 4 | T6 | 待开始 | 等待前阶段人工验收及启动授权 |
+| Day 5 | T7 | 待开始 | 等待前阶段人工验收及启动授权 |
+| Day 6 | T8 | 待开始 | 等待前阶段人工验收及启动授权 |
+| Day 7 | T9 | 待开始 | 等待前阶段人工验收及启动授权 |
+
+### Day 2 执行范围（2026-11-09）
+
+- Specification：T2 的固定版本构建、默认确定性测试与真实 CI；T3 的 ChatClient → ToolCallingManager → 真实探针回调 → 模型最终输出闭环。对应 A7/A8 的基础设施部分，不计业务 A2 通过。
+- Design：单 Maven 模块、Java 17/UTF-8；探针只存在于测试源码，不注册生产工具；显式关闭自动工具循环。真实模型测试用 ollama 标签及 ollama-it profile 隔离。
+- Tasks：T2.1 建立 POM/应用入口/本地配置；T2.2 默认离线模型测试与 GitHub Actions；T2.3 固定版本解析、effective POM、verify；T3.1 按固定版本 API 建立脚本化模型接线断言；T3.2 本地真实模型探针及闭环证据；T2/T3 Review 与验收报告。
+- CI 授权：用户于 2026-11-09 提供 `https://github.com/POILKJHMNBV/java-exception-agent`，明确授权提交并推送本次 Day 2 变更以运行 CI。仅限本次阶段，后续阶段仍遵守默认不自动提交/发布规则。
+
+### Day 2 执行记录
+
+- T2.1/T2.3：固定版本 POM、Java 17/UTF-8、应用入口和本机 Ollama 配置已建立；依赖解析、编译和可执行 JAR 打包通过。effective POM 已生成并核对。
+- T2.2：GitHub Actions 已配置 JDK 17、校验 SHA-512 后安装 Maven 3.8.4、打印并检查版本、执行默认 verify、上传测试报告；真实 CI 等待推送后验证。
+- T3.1：确定性接线测试保持真实 ChatClient、ToolCallingManager 与探针回调；默认自动循环导致断言 Red，关闭后 Green。应用启动测试指向不可达 Ollama 地址，验证启动不需要模型服务并核对配置绑定。
+- T3.2：`mvn -B -ntp -Pollama-it verify` 已通过，3 个测试，0 失败/错误/跳过；真实模型探针 1/1，2 次模型请求、1 次工具执行，耗时 3,641 ms。默认 `mvn -B -ntp verify` 仅运行 2 个确定性测试，0 失败/错误/跳过。
+- 详细命令、失败记录、Review 与闭环证据见 [Day 2 验收记录](day2-report.md)。当前仍为进行中，真实 CI 通过后才转待验收；不得进入 Day 3。
+
 ## Day 1 实测记录（2026-11-09，Asia/Shanghai）
 
 | 检查 | 结果 |
@@ -82,7 +111,7 @@ foreach ($trial in 1..3) {
 
 ## 后续任务与依赖
 
-每项实现任务执行 Specification → Design → Tasks → TDD Red → Green → Refactor → Review → CI。先将测试失败原因留档，再做最小实现；基础配置和文档无需伪造 Red。下列命令是后续工程约定，本轮没有 pom.xml，尚不可执行。
+每项实现任务执行 Specification → Design → Tasks → TDD Red → Green → Refactor → Review → CI。先将测试失败原因留档，再做最小实现；基础配置和文档无需伪造 Red。下列命令从 D2 建立工程后执行。
 
 | 日 / 任务 | 依赖 | 交付与明确验收标准 |
 | --- | --- | --- |
@@ -106,4 +135,4 @@ foreach ($trial in 1..3) {
 - 冷启动、内存和并发可能超时：9 秒级探针不是业务性能基准；D6 记录冷/热耗时和失败原因，调整预算须同步规格及测试。
 - 知识库有限、模型可能错误推理：证据引用校验与 uncertainties 保留；人工核对诊断，不能声称找到唯一根因。
 
-本轮只新增 product.md、architecture.md、plan.md、AGENTS.md；没有业务代码、构建配置或 CI 文件。单元测试/编译/CI 均未运行（尚无工程），环境检查和原生探针已执行。文档 Review 已核对验收项、错误映射和任务依赖；复验脚本通过 PowerShell 静态语法解析，本地 Markdown 链接、UTF-8 解码、代码围栏与行尾空白检查通过。下一步为人工验收本轮文档；验收前停止执行后续任务。
+Day 1 历史交付：只新增 product.md、architecture.md、plan.md、AGENTS.md；当时没有业务代码、构建配置或 CI 文件，单元测试/编译/CI 均未运行。环境检查和原生探针已执行。文档 Review、复验脚本静态语法、本地 Markdown 链接、UTF-8、代码围栏与行尾空白检查通过。用户现已验收 Day 1；当前进度以上方阶段状态及后续执行记录为准。
