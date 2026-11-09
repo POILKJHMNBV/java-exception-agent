@@ -1,6 +1,6 @@
 # Day 2 验收记录
 
-日期：2026-11-09（Asia/Shanghai）。阶段状态以 [plan.md](plan.md) 为准，只有用户能确认验收通过。
+日期：2026-11-09（Asia/Shanghai）。T2/T3 已完成，当前待验收；阶段状态以 [plan.md](plan.md) 为准，只有用户能确认验收通过。
 
 ## 范围与交付
 
@@ -23,6 +23,8 @@
 | 真实探针首次编译 | builder 旧名称 `defaultOptions` 编译失败；核对 2.0.1 源码后使用 `options`，不计业务 Red |
 | 默认：`mvn -B -ntp verify` | 2 测试、0 失败/错误/跳过；未运行 OllamaProbeTest，`!ollama` 标签筛选有效 |
 | 真实：`mvn -B -ntp -Pollama-it verify` | 显式 `!ollama \| ollama` 集合，3 测试、0 失败/错误/跳过；真实探针 1/1 通过，无失败样本被重试或舍弃 |
+| 最终：`mvn -B -ntp verify` | 2/2 确定性测试通过，0 失败/错误/跳过，构建成功；日志 `target/day2-final-verify.log` |
+| 静态 Review | effective POM 版本/编码/标签核对、严格 UTF-8 解码、证据 JSON 解析、`git diff --cached --check` 通过；JAR 中没有探针或测试类 |
 
 基础配置/文档不伪造 Red；本阶段没有实现解析、知识匹配、业务预算、报告校验或错误映射。上述后续核心逻辑仍须各自执行 TDD。
 
@@ -42,11 +44,12 @@
 - 隔离：探针和模型历史均为测试实例私有；确定性测试不需要 Ollama；应用启动测试指向 `127.0.0.1:1`；探针未注册到应用上下文。
 - 执行：实际回调前后次数、结构化调用、回传消息 ID/值与最终输出都有断言；自动循环关闭，探针最多两次模型调用、一次工具执行，无重试；连接 3 秒、传输读取 55 秒、测试 120 秒上限，未引入后台 Future 任务。
 - 固定 API：使用 2.0.1 的 `getOptions()`、`options(...)`、`disableThinking()`；应用使用元数据中的 `spring.ai.ollama.chat.think=false`，启动测试验证有效，避免未知参数静默失效。
-- GitHub Actions：workflow 已建立，待推送并观察真实运行；本地通过不计真实 CI 通过。用户已明确授权本次提交及推送。
+- GitHub Actions：[运行 42593579283](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42593579283) 已实际完成且 conclusion=success，对应提交 `d5fea2ab47992af5fcc428c57e378f99590c16cd`。JDK 17 配置、Maven 3.8.4 安装及校验、版本断言、`Verify without Ollama`、报告上传均成功；运行于 17:27–17:28（Asia/Shanghai）。
+- 推送过程：第一次 HTTPS 推送因认证对话框取消失败；继续执行时发现远程已配置为同一仓库的 SSH 地址，沿用该配置成功推送，没有强制推送或覆盖远程历史。所有提交/推送均在用户本次明确授权内。
 
 ## 偏差、风险与门禁
 
-- 实际依赖下载通过现有 Maven 镜像；GitHub Actions 将独立验证网络、固定版本下载与 Linux 环境。
+- 本地依赖下载通过现有 Maven 镜像；GitHub Actions 已独立验证固定版本下载、Linux 环境和无 Ollama 默认构建。
 - 真实探针只证明最小接线，不等于业务 A2/A6 或三类异常验收；D4 仍需实现请求级预算/总 deadline/取消/并发限制，D6 才执行业务真实模型矩阵。
 - 当前模型探针输出预算 256 token 与 Day 1 一致；生产配置保留架构规定的 2,048 token，未修改已验收决策。
-- CI 未取得成功结果前阶段保持进行中；完成后转为待验收并停止。用户验收及启动授权前不得进入 Day 3。
+- T2/T3 本地验证、Review 与真实 CI 已通过，阶段转为待验收并停止。没有擅改已验收需求或架构；用户验收及启动授权前不得进入 Day 3。
