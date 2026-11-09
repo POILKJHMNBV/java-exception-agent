@@ -45,7 +45,8 @@
 - [本次真实探针原始证据](evidence/day2-explicit-types-ollama-probe.json)：首轮结构化调用 `call_470m9uy1` / `readProbeClock` / `{"label":"Day2"}`，宿主真实执行 1 次，结果 `probe:2026-11-09T09:49:14.345525200Z` 回传至第二轮上下文，最终正文完全一致。2 次模型请求，耗时 3,637 ms，PASS。
 - 最终 `mvn -B -ntp verify`：2 测试、0 失败/错误/跳过；默认集合排除真实模型，日志 `target/day2-explicit-types-final-verify.log`。
 - Review：36 处类型替换未改变测试断言或流程；全源码 `var` 零命中，`git diff --check` 通过。Red 不适用（无行为变更）。
-- 远程 CI：待此次提交推送后读取实际运行结果；此前“未提交/未复跑”描述为上次交付时的历史状态。
+- 远程 CI：提交 `b99e45514e3be7609d6d734da769db11a98a5f69` 已推送至 `origin/master`，[运行 42596648824](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42596648824) 实际 completed / success。本次规范、4 个测试源码文件和新探针证据均已包含；此前“未提交/未复跑”描述为上次交付时的历史状态。
+- Day 2 补充验证完成并恢复待验收，等待用户明确验收；未进入 Day 3。此后仅补交本段 CI 结果及阶段状态文档，不修改已验证的源码、测试或构建配置。
 
 ## 真实 ChatClient 闭环证据（原阶段记录）
 
