@@ -39,9 +39,10 @@ import tools.jackson.databind.json.JsonMapper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/** Explicit opt-in integration evidence, not a business-tool acceptance test. */
+/** 必须显式启用的真实 Ollama 接线探针，不代替业务工具验收。 */
 @Tag("ollama")
 class OllamaProbeTest {
+    /** 保存结构化请求、宿主执行、结果回传与最终输出组成的真实闭环证据。 */
     @Test
     @Timeout(120)
     void realModelRequestsProbeAndUsesActualResult() throws Exception {
@@ -49,6 +50,7 @@ class OllamaProbeTest {
         long start = System.nanoTime();
         String outcome = "FAIL";
         try {
+            // 真实探针使用有限连接/读取超时，禁止自动拉取模型及自动重试。
             JdkClientHttpRequestFactory factory = new JdkClientHttpRequestFactory(HttpClient.newBuilder()
                     .connectTimeout(Duration.ofSeconds(3)).build());
             factory.setReadTimeout(Duration.ofSeconds(55));
@@ -84,6 +86,7 @@ class OllamaProbeTest {
             assertThat(args.size()).isEqualTo(1);
             assertThat(args.path("label").asString()).isEqualTo("Day2");
 
+            // 先核验模型发出的实际结构化参数，再允许宿主执行回调。
             ToolExecutionResult executed = manager.executeToolCalls(prompt, first);
             assertThat(probe.executions()).isEqualTo(1);
             assertThat(executed.returnDirect()).isFalse();
@@ -103,6 +106,7 @@ class OllamaProbeTest {
             outcome = "PASS";
         }
         finally {
+            // 成败都保存本次证据，避免只保留成功样本；历史归档由交付流程另行保存。
             evidence.add(Map.of("event", "outcome", "status", outcome,
                     "elapsedMs", (System.nanoTime() - start) / 1_000_000));
             Path path = Path.of("target", "ollama-probe-evidence.json");
@@ -112,19 +116,26 @@ class OllamaProbeTest {
         }
     }
 
+    /** 委托真实模型调用并记录必要闭环证据，不记录思考内容。 */
     private static final class RecordingModel implements ChatModel {
+        /** 实际负责请求 Ollama 的模型实例。 */
         private final ChatModel delegate;
+        /** 本次探针共享的事件记录列表。 */
         private final List<Map<String, Object>> evidence;
+        /** 已向真实模型发起的请求次数。 */
         private int calls;
 
+        /** 绑定实际模型与本次证据收集器。 */
         private RecordingModel(ChatModel delegate, List<Map<String, Object>> evidence) {
             this.delegate = delegate;
             this.evidence = evidence;
         }
 
+        /** 透传真实模型选项，避免记录包装器改变调用配置。 */
         @Override
         public ChatOptions getOptions() { return delegate.getOptions(); }
 
+        /** 记录请求角色、工具结果和模型输出，同时限制探针最多两轮请求。 */
         @Override
         public ChatResponse call(Prompt prompt) {
             calls++;
@@ -142,7 +153,7 @@ class OllamaProbeTest {
             entry.put("number", calls);
             entry.put("toolCalls", output.getToolCalls());
             entry.put("text", output.getText());
-            evidence.add(entry); // Deliberately exclude reasoning and response metadata.
+            evidence.add(entry); // 只记录闭环所需字段，排除思考内容及响应元数据。
             return response;
         }
     }

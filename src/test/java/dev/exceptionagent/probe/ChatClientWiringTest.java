@@ -21,7 +21,9 @@ import org.springframework.ai.model.tool.ToolExecutionResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/** 使用脚本模型验证真实 ChatClient、工具执行器与回调之间的确定性接线。 */
 class ChatClientWiringTest {
+    /** 验证宿主授权前不执行工具，执行结果进入后续模型上下文并被最终输出使用。 */
     @Test
     void callerControlsExecutionAndReturnsActualToolResultToModel() {
         ProbeSupport.ClockProbe probe = new ProbeSupport.ClockProbe(Clock.fixed(Instant.parse("2026-11-09T00:00:00Z"), ZoneOffset.UTC));
@@ -36,6 +38,7 @@ class ChatClientWiringTest {
         assertThat(first.getResult().getOutput().getToolCalls()).containsExactly(
                 new AssistantMessage.ToolCall("scripted-1", "function", "readProbeClock", "{\"label\":\"Day2\"}"));
 
+        // 保留真实执行器与回调，只替换模型响应，避免整段业务 mock 掩盖接线问题。
         ToolExecutionResult executed = ToolCallingManager.builder().build().executeToolCalls(prompt, first);
         assertThat(probe.executions()).isEqualTo(1);
         assertThat(executed.returnDirect()).isFalse();
@@ -55,15 +58,18 @@ class ChatClientWiringTest {
         assertThat(probe.executions()).isEqualTo(1);
     }
 
-    /** Scripted model evidence only, never claimed as a real Ollama result. */
+    /** 只产生脚本化测试响应，不将其作为真实 Ollama 调用证据。 */
     static final class ScriptedModel implements ChatModel {
+        /** 捕获实际收到的请求，以核对调用次数和回传上下文。 */
         final List<Prompt> prompts = new ArrayList<>();
 
+        /** 提供工具调用选项，使测试走真实工具调用接线。 */
         @Override
         public ToolCallingChatOptions getOptions() {
             return ToolCallingChatOptions.builder().build();
         }
 
+        /** 首轮返回结构化调用，第二轮原样使用实际工具回传结果。 */
         @Override
         public ChatResponse call(Prompt prompt) {
             prompts.add(prompt);

@@ -42,7 +42,7 @@
 
 - 用户明确授权提交、推送此次修改并运行远程 CI、重跑真实模型探针；范围仍为 Day 2 T2/T3。
 - `mvn -B -ntp -Pollama-it verify`：3 测试、0 失败/错误/跳过；日志 `target/day2-explicit-types-ollama.log`。仅执行一次真实探针，无失败重试或舍弃样本。
-- [本次真实探针原始证据](evidence/day2-explicit-types-ollama-probe.json)：首轮结构化调用 `call_470m9uy1` / `readProbeClock` / `{"label":"Day2"}`，宿主真实执行 1 次，结果 `probe:2026-11-09T09:49:14.345525200Z` 回传至第二轮上下文，最终正文完全一致。2 次模型请求，耗时 3,637 ms，PASS。
+- [本次真实探针原始证据](evidence/day2/day2-explicit-types-ollama-probe.json)：首轮结构化调用 `call_470m9uy1` / `readProbeClock` / `{"label":"Day2"}`，宿主真实执行 1 次，结果 `probe:2026-11-09T09:49:14.345525200Z` 回传至第二轮上下文，最终正文完全一致。2 次模型请求，耗时 3,637 ms，PASS。
 - 最终 `mvn -B -ntp verify`：2 测试、0 失败/错误/跳过；默认集合排除真实模型，日志 `target/day2-explicit-types-final-verify.log`。
 - Review：36 处类型替换未改变测试断言或流程；全源码 `var` 零命中，`git diff --check` 通过。Red 不适用（无行为变更）。
 - 远程 CI：提交 `b99e45514e3be7609d6d734da769db11a98a5f69` 已推送至 `origin/master`，[运行 42596648824](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42596648824) 实际 completed / success。本次规范、4 个测试源码文件和新探针证据均已包含；此前“未提交/未复跑”描述为上次交付时的历史状态。
@@ -50,7 +50,7 @@
 
 ## 真实 ChatClient 闭环证据（原阶段记录）
 
-原始结构化记录见 [day2-ollama-probe.json](evidence/day2-ollama-probe.json)。测试再次执行会在 `target/ollama-probe-evidence.json` 生成新记录，不自动覆盖本次归档。
+原始结构化记录见 [day2-ollama-probe.json](evidence/day2/day2-ollama-probe.json)。测试再次执行会在 `target/ollama-probe-evidence.json` 生成新记录，不自动覆盖本次归档。
 
 - 本地 Ollama、qwen3.5:9b，temperature=0、think=false、256 token（仅探针），不重试、不拉模型。
 - 首轮模型返回 `call_d441fnxg` / `readProbeClock` / `{"label":"Day2"}`；此时实际工具执行次数为 0。

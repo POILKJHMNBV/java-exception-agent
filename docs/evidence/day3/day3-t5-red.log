@@ -1,0 +1,393 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------< dev.exceptionagent:java-exception-agent >---------------
+[INFO] Building java-exception-agent 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:3.5.0:resources (default-resources) @ java-exception-agent ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.15.0:compile (default-compile) @ java-exception-agent ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 5 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.5.0:testResources (default-testResources) @ java-exception-agent ---
+[INFO] skip non existing resourceDirectory D:\study\Java\practice\java-exception-agent\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.15.0:testCompile (default-testCompile) @ java-exception-agent ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 6 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.5.6:test (default-test) @ java-exception-agent ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.exceptionagent.tools.KnowledgeBaseTest
+[ERROR] Tests run: 45, Failures: 41, Errors: 0, Skipped: 0, Time elapsed: 0.331 s <<< FAILURE! -- in dev.exceptionagent.tools.KnowledgeBaseTest
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsDuplicateIdsEvenAcrossDifferentTypes -- Time elapsed: 0.050 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsDuplicateIdsEvenAcrossDifferentTypes(KnowledgeBaseTest.java:105)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.closesResourceOnBothSuccessAndFailure -- Time elapsed: 0.005 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting value to be true but was false
+	at dev.exceptionagent.tools.KnowledgeBaseTest.closesResourceOnBothSuccessAndFailure(KnowledgeBaseTest.java:135)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.sortsByIdAndCapsEachExactMatchAtThree -- Time elapsed: 0.009 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  ["n-01", "n-02", "n-03"]
+but could not find the following elements:
+  ["n-01", "n-02", "n-03"]
+
+	at dev.exceptionagent.tools.KnowledgeBaseTest.sortsByIdAndCapsEachExactMatchAtThree(KnowledgeBaseTest.java:45)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.missingResourceFailsClearly -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.missingResourceFailsClearly(KnowledgeBaseTest.java:118)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.bundledResourceCoversRequiredExceptions(String)[1] -- Time elapsed: 0.003 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.KnowledgeBaseTest.bundledResourceCoversRequiredExceptions(KnowledgeBaseTest.java:30)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.bundledResourceCoversRequiredExceptions(String)[2] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.KnowledgeBaseTest.bundledResourceCoversRequiredExceptions(KnowledgeBaseTest.java:30)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.bundledResourceCoversRequiredExceptions(String)[3] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.KnowledgeBaseTest.bundledResourceCoversRequiredExceptions(KnowledgeBaseTest.java:30)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidKnowledgePreventsContextStartup -- Time elapsed: 0.172 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidKnowledgePreventsContextStartup(KnowledgeBaseTest.java:126)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.returnedEntriesAreDeeplyImmutableAndRequestsAreIndependent -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.KnowledgeBaseTest.returnedEntriesAreDeeplyImmutableAndRequestsAreIndependent(KnowledgeBaseTest.java:156)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[1] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[2] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[3] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[4] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[5] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[6] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[7] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[8] -- Time elapsed: 0.006 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(String)[9] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause(KnowledgeBaseTest.java:70)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.unrecognizedStackOnlyAllowsEmptyTypeAndReturnsEmpty -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.unrecognizedStackOnlyAllowsEmptyTypeAndReturnsEmpty(KnowledgeBaseTest.java:61)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[1] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[2] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[3] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[4] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[5] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[6] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[7] -- Time elapsed: 0.009 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[8] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[9] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[10] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[11] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[12] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[13] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[14] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[15] -- Time elapsed: 0.008 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[16] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[17] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[18] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(String)[19] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase(KnowledgeBaseTest.java:100)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.requiresParseResultBeforeQueryAndUsesDeepestCause -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.requiresParseResultBeforeQueryAndUsesDeepestCause(KnowledgeBaseTest.java:76)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.rejectsDuplicateJsonFieldsAndTrailingDocuments -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.rejectsDuplicateJsonFieldsAndTrailingDocuments(KnowledgeBaseTest.java:111)
+
+[ERROR] dev.exceptionagent.tools.KnowledgeBaseTest.ioFailureIsNotSwallowed -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.KnowledgeBaseTest.ioFailureIsNotSwallowed(KnowledgeBaseTest.java:149)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   KnowledgeBaseTest.bundledResourceCoversRequiredExceptions:30 
+Expecting actual not to be empty
+[ERROR]   KnowledgeBaseTest.bundledResourceCoversRequiredExceptions:30 
+Expecting actual not to be empty
+[ERROR]   KnowledgeBaseTest.bundledResourceCoversRequiredExceptions:30 
+Expecting actual not to be empty
+[ERROR]   KnowledgeBaseTest.closesResourceOnBothSuccessAndFailure:135 
+Expecting value to be true but was false
+[ERROR]   KnowledgeBaseTest.invalidKnowledgePreventsContextStartup:126 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.invalidResourcesFailInsteadOfProducingAnEmptyKnowledgeBase:100 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.ioFailureIsNotSwallowed:149 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.missingResourceFailsClearly:118 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsDuplicateIdsEvenAcrossDifferentTypes:105 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsDuplicateJsonFieldsAndTrailingDocuments:111 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.rejectsQueriesThatDifferFromCurrentParsedCause:70 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.requiresParseResultBeforeQueryAndUsesDeepestCause:76 
+Expecting code to raise a throwable.
+[ERROR]   KnowledgeBaseTest.returnedEntriesAreDeeplyImmutableAndRequestsAreIndependent:156 
+Expecting actual not to be empty
+[ERROR]   KnowledgeBaseTest.sortsByIdAndCapsEachExactMatchAtThree:45 
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  ["n-01", "n-02", "n-03"]
+but could not find the following elements:
+  ["n-01", "n-02", "n-03"]
+
+[ERROR]   KnowledgeBaseTest.unrecognizedStackOnlyAllowsEmptyTypeAndReturnsEmpty:61 
+Expecting code to raise a throwable.
+[INFO] 
+[ERROR] Tests run: 45, Failures: 41, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.271 s
+[INFO] Finished at: 2026-11-09T21:15:04+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project java-exception-agent: There are test failures.
+[ERROR] 
+[ERROR] See D:\study\Java\practice\java-exception-agent\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -1,0 +1,284 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------< dev.exceptionagent:java-exception-agent >---------------
+[INFO] Building java-exception-agent 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-resources-plugin:3.5.0:resources (default-resources) @ java-exception-agent ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.15.0:compile (default-compile) @ java-exception-agent ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 3 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.5.0:testResources (default-testResources) @ java-exception-agent ---
+[INFO] skip non existing resourceDirectory D:\study\Java\practice\java-exception-agent\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.15.0:testCompile (default-testCompile) @ java-exception-agent ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 5 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:3.5.6:test (default-test) @ java-exception-agent ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.exceptionagent.tools.StackTraceParserTest
+[ERROR] Tests run: 21, Failures: 17, Errors: 4, Skipped: 0, Time elapsed: 0.126 s <<< FAILURE! -- in dev.exceptionagent.tools.StackTraceParserTest
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.parsesModuleLoaderAndSpecialLocations -- Time elapsed: 0.047 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  ["java.base", "app/app.module@1.0", "app/", null]
+but could not find the following elements:
+  ["java.base", "app/app.module@1.0", "app/", null]
+
+	at dev.exceptionagent.tools.StackTraceParserTest.parsesModuleLoaderAndSpecialLocations(StackTraceParserTest.java:90)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.nullInputIsRejected -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting code to raise a throwable.
+	at dev.exceptionagent.tools.StackTraceParserTest.nullInputIsRejected(StackTraceParserTest.java:181)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.limitsKeyFramesToFirstFiveWithoutDiscardingParsedFrames -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  [1, 2, 3, 4, 5]
+but could not find the following elements:
+  [1, 2, 3, 4, 5]
+
+	at dev.exceptionagent.tools.StackTraceParserTest.limitsKeyFramesToFirstFiveWithoutDiscardingParsedFrames(StackTraceParserTest.java:75)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(String)[1] -- Time elapsed: 0.004 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected size: 1 but was: 0 in:
+[]
+	at dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(StackTraceParserTest.java:26)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(String)[2] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected size: 1 but was: 0 in:
+[]
+	at dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(StackTraceParserTest.java:26)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(String)[3] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected size: 1 but was: 0 in:
+[]
+	at dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(StackTraceParserTest.java:26)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(String)[4] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected size: 1 but was: 0 in:
+[]
+	at dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(StackTraceParserTest.java:26)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(String)[5] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected size: 1 but was: 0 in:
+[]
+	at dev.exceptionagent.tools.StackTraceParserTest.parsesTypeMessageAndExactInputReferences(StackTraceParserTest.java:26)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.handlesThreadPrefixEmptyMessageAndLineEndings(String)[1] -- Time elapsed: 0 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.exceptionType()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+	at dev.exceptionagent.tools.StackTraceParserTest.handlesThreadPrefixEmptyMessageAndLineEndings(StackTraceParserTest.java:43)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.handlesThreadPrefixEmptyMessageAndLineEndings(String)[2] -- Time elapsed: 0 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.exceptionType()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+	at dev.exceptionagent.tools.StackTraceParserTest.handlesThreadPrefixEmptyMessageAndLineEndings(StackTraceParserTest.java:43)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.preservesUnknownLinesAndDoesNotExecuteEmbeddedInstructions -- Time elapsed: 0 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.exceptionType()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+	at dev.exceptionagent.tools.StackTraceParserTest.preservesUnknownLinesAndDoesNotExecuteEmbeddedInstructions(StackTraceParserTest.java:130)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.secondTopLevelExceptionIsNotSilentlyTreatedAsCause -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expected size: 1 but was: 0 in:
+[]
+	at dev.exceptionagent.tools.StackTraceParserTest.secondTopLevelExceptionIsNotSilentlyTreatedAsCause(StackTraceParserTest.java:161)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.suppressedBranchesAndTheirCausesNeverBecomeMainCause -- Time elapsed: 0 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  ["java.lang.RuntimeException", "java.lang.NullPointerException"]
+but could not find the following elements:
+  ["java.lang.RuntimeException", "java.lang.NullPointerException"]
+
+	at dev.exceptionagent.tools.StackTraceParserTest.suppressedBranchesAndTheirCausesNeverBecomeMainCause(StackTraceParserTest.java:117)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.resultsAreImmutableAndDoNotLeakBetweenParses -- Time elapsed: 0.016 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual throwable to be an instance of:
+  java.lang.UnsupportedOperationException
+but was:
+  java.lang.NullPointerException: Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.frames()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+	at dev.exceptionagent.tools.StackTraceParserTest.lambda$resultsAreImmutableAndDoNotLeakBetweenParses$3(StackTraceParserTest.java:173)
+	at org.assertj.core.api.ThrowableAssert.catchThrowable(ThrowableAssert.java:66)
+	at org.assertj.core.api.AssertionsForClassTypes.catchThrowable(AssertionsForClassTypes.java:908)
+	...(88 remaining lines not displayed - this can be changed with Assertions.setMaxStackTraceElementsDisplayed)
+	at dev.exceptionagent.tools.StackTraceParserTest.resultsAreImmutableAndDoNotLeakBetweenParses(StackTraceParserTest.java:173)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.choosesDeepestCauseAndFillsFramesFromNearestParentsInOriginalOrder -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  [1, 4, 7]
+but could not find the following elements:
+  [1, 4, 7]
+
+	at dev.exceptionagent.tools.StackTraceParserTest.choosesDeepestCauseAndFillsFramesFromNearestParentsInOriginalOrder(StackTraceParserTest.java:62)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.reportsMissingFramesAndMalformedFrameWithoutLosingCause -- Time elapsed: 0.001 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.exceptionType()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+	at dev.exceptionagent.tools.StackTraceParserTest.reportsMissingFramesAndMalformedFrameWithoutLosingCause(StackTraceParserTest.java:150)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(String)[1] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(StackTraceParserTest.java:143)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(String)[2] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(StackTraceParserTest.java:143)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(String)[3] -- Time elapsed: 0.001 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(StackTraceParserTest.java:143)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(String)[4] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(StackTraceParserTest.java:143)
+
+[ERROR] dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(String)[5] -- Time elapsed: 0 s <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be empty
+	at dev.exceptionagent.tools.StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType(StackTraceParserTest.java:143)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   StackTraceParserTest.choosesDeepestCauseAndFillsFramesFromNearestParentsInOriginalOrder:62 
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  [1, 4, 7]
+but could not find the following elements:
+  [1, 4, 7]
+
+[ERROR]   StackTraceParserTest.limitsKeyFramesToFirstFiveWithoutDiscardingParsedFrames:75 
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  [1, 2, 3, 4, 5]
+but could not find the following elements:
+  [1, 2, 3, 4, 5]
+
+[ERROR]   StackTraceParserTest.nullInputIsRejected:181 
+Expecting code to raise a throwable.
+[ERROR]   StackTraceParserTest.parsesModuleLoaderAndSpecialLocations:90 
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  ["java.base", "app/app.module@1.0", "app/", null]
+but could not find the following elements:
+  ["java.base", "app/app.module@1.0", "app/", null]
+
+[ERROR]   StackTraceParserTest.parsesTypeMessageAndExactInputReferences:26 
+Expected size: 1 but was: 0 in:
+[]
+[ERROR]   StackTraceParserTest.parsesTypeMessageAndExactInputReferences:26 
+Expected size: 1 but was: 0 in:
+[]
+[ERROR]   StackTraceParserTest.parsesTypeMessageAndExactInputReferences:26 
+Expected size: 1 but was: 0 in:
+[]
+[ERROR]   StackTraceParserTest.parsesTypeMessageAndExactInputReferences:26 
+Expected size: 1 but was: 0 in:
+[]
+[ERROR]   StackTraceParserTest.parsesTypeMessageAndExactInputReferences:26 
+Expected size: 1 but was: 0 in:
+[]
+[ERROR]   StackTraceParserTest.resultsAreImmutableAndDoNotLeakBetweenParses:173 
+Expecting actual throwable to be an instance of:
+  java.lang.UnsupportedOperationException
+but was:
+  java.lang.NullPointerException: Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.frames()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+	at dev.exceptionagent.tools.StackTraceParserTest.lambda$resultsAreImmutableAndDoNotLeakBetweenParses$3(StackTraceParserTest.java:173)
+	at org.assertj.core.api.ThrowableAssert.catchThrowable(ThrowableAssert.java:66)
+	at org.assertj.core.api.AssertionsForClassTypes.catchThrowable(AssertionsForClassTypes.java:908)
+	...(88 remaining lines not displayed - this can be changed with Assertions.setMaxStackTraceElementsDisplayed)
+[ERROR]   StackTraceParserTest.secondTopLevelExceptionIsNotSilentlyTreatedAsCause:161 
+Expected size: 1 but was: 0 in:
+[]
+[ERROR]   StackTraceParserTest.suppressedBranchesAndTheirCausesNeverBecomeMainCause:117 
+Expecting actual:
+  []
+to contain exactly (and in same order):
+  ["java.lang.RuntimeException", "java.lang.NullPointerException"]
+but could not find the following elements:
+  ["java.lang.RuntimeException", "java.lang.NullPointerException"]
+
+[ERROR]   StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType:143 
+Expecting actual not to be empty
+[ERROR]   StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType:143 
+Expecting actual not to be empty
+[ERROR]   StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType:143 
+Expecting actual not to be empty
+[ERROR]   StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType:143 
+Expecting actual not to be empty
+[ERROR]   StackTraceParserTest.unrecognizableOrOrphanInputHasNoInventedType:143 
+Expecting actual not to be empty
+[ERROR] Errors: 
+[ERROR]   StackTraceParserTest.handlesThreadPrefixEmptyMessageAndLineEndings:43 NullPointer Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.exceptionType()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+[ERROR]   StackTraceParserTest.handlesThreadPrefixEmptyMessageAndLineEndings:43 NullPointer Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.exceptionType()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+[ERROR]   StackTraceParserTest.preservesUnknownLinesAndDoesNotExecuteEmbeddedInstructions:130 NullPointer Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.exceptionType()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+[ERROR]   StackTraceParserTest.reportsMissingFramesAndMalformedFrameWithoutLosingCause:150 NullPointer Cannot invoke "dev.exceptionagent.tools.ParsedStackTrace$ExceptionNode.exceptionType()" because the return value of "dev.exceptionagent.tools.ParsedStackTrace.rootCause()" is null
+[INFO] 
+[ERROR] Tests run: 21, Failures: 17, Errors: 4, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.153 s
+[INFO] Finished at: 2026-11-09T21:12:16+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.6:test (default-test) on project java-exception-agent: There are test failures.
+[ERROR] 
+[ERROR] See D:\study\Java\practice\java-exception-agent\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

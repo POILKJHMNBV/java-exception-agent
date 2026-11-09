@@ -7,12 +7,30 @@
 | 阶段 | 任务 | 状态 | 人工验收/执行依据 |
 | --- | --- | --- | --- |
 | Day 1 | T1 | 已验收 | 用户于 2026-11-09 明确表示“Day 1 已验收通过” |
-| Day 2 | T2、T3 | 待验收 | 2026-11-09 显式类型修正已推送；本地确定性测试、真实探针及远程 CI 42596648824 通过，等待用户验收，不进入 Day 3 |
-| Day 3 | T4、T5 | 待开始 | 等待 Day 2 人工验收及启动授权 |
+| Day 2 | T2、T3 | 已验收 | 用户于 2026-11-09 明确表示“Day2我验收通过，现在进行Day3” |
+| Day 3 | T4、T5 | 待验收 | 2026-11-09 注释与证据归档修正完成，本地 verify 71/71；用户已授权本次提交/推送/远程 CI，结果另行记录；等待人工验收，不进入 Day 4 |
 | Day 4 | T6 | 待开始 | 等待前阶段人工验收及启动授权 |
 | Day 5 | T7 | 待开始 | 等待前阶段人工验收及启动授权 |
 | Day 6 | T8 | 待开始 | 等待前阶段人工验收及启动授权 |
 | Day 7 | T9 | 待开始 | 等待前阶段人工验收及启动授权 |
+
+### Day 3 执行范围（2026-11-09）
+
+- Specification：T4/A3 的主异常链、最深主因、来源行号、最多 5 个关键帧与解析警告；T5/A4 的三类知识条目、精确匹配、稳定排序、空命中和加载/查询校验。
+- Design：遵循已验收架构，在 tools 包实现无状态解析器和启动加载的不可变 JSON 知识库。解析结果保留原始行作为后续证据依据；查询显式携带本次解析结果，校验查询类型一致。Day 4 再接入请求 ToolContext、两个模型工具入口及预算循环；Day 3 不注册模型回调、不实现 API/报告。
+- Tasks：T4.1 输出契约与边界测试 Red；T4.2 解析 Green/Review；T5.1 加载、匹配、非法查询测试 Red；T5.2 JSON 资源与实现 Green；T4/T5 最终 verify、Review、真实 CI 状态与验收报告。
+- CI 边界：用户于 2026-11-09 明确授权提交、推送本次 Day 3 修改并运行远程 CI；本次授权不跨后续交付。后续默认先完成本地验证并等待人工验收，不自动提交、推送或运行远程 CI。
+
+### Day 3 执行记录
+
+- T4.1/T4.2：新增不可变解析结果与无状态解析器。覆盖三类样例、主因链、最多 5 个关键帧及父帧补齐、线程/模块/类加载器前缀、特殊位置、空消息、CRLF/LF、Suppressed、省略帧、无法识别行及跨解析隔离。首次 Red：21 项中 17 断言失败、4 空结果错误；Green：21/21。
+- T4 Review 回归：补测复现消息空白丢失、损坏 Caused by 后帧归属错误、长全限定名触发正则 StackOverflowError（2 失败、1 错误）。保留原消息空白、停止不可信帧归属、改为 Unicode 码点迭代检查后，24/24 通过。
+- T5.1/T5.2：新增三类 JSON 知识条目与启动加载 Bean；必填字段/数组、JSON 重复字段/尾随文档、唯一 ID 校验；按 ID 排序，精确匹配最多 3 项；查询必须等于本次解析主因（不可识别时仅空字符串）。首次 Red：45 项中 41 断言失败、4 空命中用例通过；Green：45/45。坏库阻止上下文启动、资源关闭及结果深层不可变均有测试。
+- 最终本地 `mvn -B -ntp verify`：2026-11-09 21:19（Asia/Shanghai），71 项、0 失败/错误/跳过，JAR 打包成功。固定版本不变；默认排除 ollama，启动测试指向不可达 Ollama 地址。
+- Review：范围、证据行号、只读数据边界、资源关闭、请求状态隔离、Java 显式类型检查通过；本阶段不实现 Day 4 预算/超时调度或 Day 5 HTTP/报告，不声称业务工具调用闭环已通过。
+- 2026-11-09 用户要求的修正：10 份证据按所属阶段迁入 `docs/evidence/day2/`、`docs/evidence/day3/`，内容 SHA-256 保持一致；同步文档链接。11 个 Java 文件补充中文 Javadoc 和关键片段注释，修改前后非注释词法序列完全一致。AGENTS.md 固化注释、证据归档及先验收再授权提交/推送/远程 CI 的默认规则。
+- 注释修正后 `mvn -B -ntp verify`：2026-11-09 23:39（Asia/Shanghai），71/71，0 失败/错误/跳过；[日志](evidence/day3/day3-comments-verify.log)。本次无业务行为变更，不新增无意义 Red；原 T4/T5 Red/Green 证据保留。
+- 本次真实 GitHub Actions CI：已获得用户当次授权，待提交推送后核验；不使用 Day 2 旧结果代替。详情与日志见 [Day 3 交付记录](day3-report.md)。
 
 ### Day 2 执行范围（2026-11-09）
 
@@ -24,13 +42,13 @@
 ### Day 2 执行记录
 
 - 2026-11-09 远程复验完成：显式类型修正与本次探针证据已提交并推送至 `origin/master`，提交 `b99e45514e3be7609d6d734da769db11a98a5f69`；[CI 42596648824](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42596648824) 实际状态 completed / success。Day 2 恢复待验收；以下“待推送/未执行”描述保留为之前各次操作的历史记录，不代表当前状态。
-- 2026-11-09 补充复验：用户明确授权提交、推送本次修改、运行远程 CI、重跑真实模型探针。`mvn -B -ntp -Pollama-it verify` 3/3 通过，探针 2 次模型请求、1 次工具执行、3,637 ms，闭环证据已另存 `docs/evidence/day2-explicit-types-ollama-probe.json`；随后默认 `mvn -B -ntp verify` 2/2 通过。Review 和源码 `var` 扫描通过；远程 CI 待推送后核验。
+- 2026-11-09 补充复验：用户明确授权提交、推送本次修改、运行远程 CI、重跑真实模型探针。`mvn -B -ntp -Pollama-it verify` 3/3 通过，探针 2 次模型请求、1 次工具执行、3,637 ms，闭环证据已另存 `docs/evidence/day2/day2-explicit-types-ollama-probe.json`；随后默认 `mvn -B -ntp verify` 2/2 通过。Review 和源码 `var` 扫描通过；远程 CI 待推送后核验。
 - 2026-11-09 编码规范修正：按用户要求在 AGENTS.md 固化 Java 局部变量显式类型规则；扫描当前阶段全部 5 个 Java 文件，替换 4 个测试文件中的 36 处 `var`。本次属于 T2/T3 无行为变更修正，生产入口无违规；全源码扫描零命中，`mvn -B -ntp verify` 2/2 通过，Review 与 `git diff --check` 通过。本次未提交/推送，未运行新的远程 CI 或真实模型探针；原有结果保留为历史证据。修正后重新待验收，详情见验收记录补充。
 - T2.1/T2.3：固定版本 POM、Java 17/UTF-8、应用入口和本机 Ollama 配置已建立；依赖解析、编译和可执行 JAR 打包通过。effective POM 已生成并核对。
 - T2.2：GitHub Actions 已配置 JDK 17、校验 SHA-512 后安装 Maven 3.8.4、打印并检查版本、执行默认 verify、上传测试报告；[真实 CI 42593579283](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42593579283) 于 2026-11-09 17:28（Asia/Shanghai）通过，提交 `d5fea2ab47992af5fcc428c57e378f99590c16cd`。
 - T3.1：确定性接线测试保持真实 ChatClient、ToolCallingManager 与探针回调；默认自动循环导致断言 Red，关闭后 Green。应用启动测试指向不可达 Ollama 地址，验证启动不需要模型服务并核对配置绑定。
 - T3.2：`mvn -B -ntp -Pollama-it verify` 已通过，3 个测试，0 失败/错误/跳过；真实模型探针 1/1，2 次模型请求、1 次工具执行，耗时 3,641 ms。默认 `mvn -B -ntp verify` 仅运行 2 个确定性测试，0 失败/错误/跳过。
-- 详细命令、失败记录、Review 与闭环证据见 [Day 2 验收记录](day2-report.md)。T2/T3 已完成，当前待用户验收；不得进入 Day 3。
+- 详细命令、失败记录、Review 与闭环证据见 [Day 2 验收记录](day2-report.md)。T2/T3 已于 2026-11-09 经用户验收；Day 3 已获启动授权。
 
 ## Day 1 实测记录（2026-11-09，Asia/Shanghai）
 
