@@ -83,6 +83,8 @@ mvn -B -ntp -Pollama-it -Dtest=OllamaDiagnosisTest test
 
 在项目根目录确认已有本地模型及 Ollama 服务可用后，执行上述两条完整 verify 命令即可复验。仅运行业务样本可使用前述 `-Dtest=OllamaDiagnosisTest` 命令；新证据写入 `target/day6/<UTC时间-UUID>/`，成败均写入，全部样本均执行，归档时另起批次。
 
-初次交付时远程 CI 未运行、未提交、未推送。用户于 2026-11-10 已明确验收 Day 6 并授权本次提交、推送及远程 CI；执行结果另行补充。上述语义风险仍保留，Day 7 未获启动授权。
+初次交付时远程 CI 未运行、未提交、未推送。用户于 2026-11-10 已明确验收 Day 6 并授权本次提交、推送及远程 CI。上述语义风险仍保留，Day 7 未获启动授权。
 
 验收后提交前复验：2026-11-10 21:58:34 执行 `mvn -B -ntp verify`，188/188，0 失败/错误/跳过，JAR 打包成功。源文件 SHA-256 与已验收真实模型批次一致；本次不重复运行真实模型。Review 核对变更范围、证据摘要及 diff 空白检查通过，过程输出仅存 target。
+
+本次变更提交 `70a0b4bb328f4ebaeac87fdc2ebf74621b6eb55b` 已推送至 origin/master；[GitHub Actions 42829839907](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42829839907) 已实际完成，状态 completed / success。Maven 3.8.4 安装、JDK/Maven 版本核验、Verify without Ollama 和测试报告上传全部成功。[CI 证据](evidence/day6/day6-ci-run.json) 仅保留提交关联、运行链接、最终状态及步骤摘要；没有用历史 CI 或本地结果代替本次远程验证。

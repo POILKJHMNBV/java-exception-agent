@@ -29,7 +29,7 @@
 - T8.3：批次 04 冷加载完整 `mvn -B -ntp -Pollama-it verify` 201/201，冷加载首样本 5849 ms。语义 Review 后补充提示并执行批次 05，2026-11-10 21:44:30 完整 profile 再次 201/201，0 失败/错误/跳过；业务样本 12/12、既有真实探针 1/1、确定性集合 188/188。最终业务样本均 3 次模型请求、2 次工具执行，1107–3316 ms，最大单轮 completionTokens=284，保留 2048 token 设置。
 - 最终 `mvn -B -ntp verify` 于 2026-11-10 21:45:30 通过，188/188、0 失败/错误/跳过，JAR 打包成功，真实集合未运行。33 个 Java 文件 Javadoc 无缺失，var 零命中，diff 空白检查通过。批次 05 测试完成后的 Surefire 关闭管道警告已核对，不影响完整结果和成功退出，详情见报告。
 - Review：调用闭环、证据、partial、白名单、预算和既有资源/隔离测试通过。语义仍有局限：部分 NPE 建议未经业务确认使用默认值，IAE 有未经验证的参数备选，NFE 有泛化的范围备选；引用正确不保证推理正确，需开发者审阅。未将提示词改进声称为彻底消除模型错误。
-- [Day 6 交付记录](day6-report.md) 保留全部命令、失败、语义 Review 与风险；[批次清单](evidence/day6/manifest.json) 关联五个完整业务批次和最终源文件摘要。证据仅归档必要闭环 JSON，过程日志仅在 target。初次交付未提交、未推送，远程 CI 未运行；用户于 2026-11-10 明确验收并授权后开始本次提交、推送及远程 CI，结果待执行后记录，不启动 Day 7。
+- [Day 6 交付记录](day6-report.md) 保留全部命令、失败、语义 Review 与风险；[批次清单](evidence/day6/manifest.json) 关联五个完整业务批次和最终源文件摘要。证据仅归档必要闭环 JSON，过程日志仅在 target。初次交付未提交、未推送，远程 CI 未运行；用户于 2026-11-10 明确验收并授权后，提交 `70a0b4bb328f4ebaeac87fdc2ebf74621b6eb55b` 已推送至 origin/master，[真实 CI 42829839907](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42829839907) completed / success；固定 Maven/JDK 核验、无 Ollama 的 verify 及报告上传均通过。[CI 结构化证据](evidence/day6/day6-ci-run.json) 已归档，不启动 Day 7。
 
 ### Day 5 执行范围（2026-11-10）
 
