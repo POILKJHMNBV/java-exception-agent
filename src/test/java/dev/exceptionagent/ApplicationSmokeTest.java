@@ -11,6 +11,8 @@ import org.springframework.ai.ollama.api.ThinkOption;
 import org.springframework.ai.tool.ToolCallback;
 import dev.exceptionagent.tools.KnowledgeBase;
 import dev.exceptionagent.tools.StackTraceParser;
+import dev.exceptionagent.diagnosis.DiagnosisService;
+import org.springframework.core.retry.RetryTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,6 +30,9 @@ class ApplicationSmokeTest {
     void startsWithoutOllamaAndBindsFixedModelSettings() {
         OllamaChatOptions options = (OllamaChatOptions) context.getBean(OllamaChatModel.class).getOptions();
         assertThat(context.getBean(ChatClient.Builder.class)).isNotNull();
+        assertThat(context.getBean(DiagnosisService.class)).isNotNull();
+        assertThat(context.getBean(RetryTemplate.class).getRetryPolicy()
+                .shouldRetry(new java.io.IOException("unreachable"))).isFalse();
         assertThat(options.getModel()).isEqualTo("qwen3.5:9b");
         assertThat(options.getTemperature()).isEqualTo(0.0);
         assertThat(options.getThinkOption()).isEqualTo(ThinkOption.ThinkBoolean.DISABLED);

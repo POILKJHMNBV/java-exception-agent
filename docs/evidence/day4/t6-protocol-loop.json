@@ -1,0 +1,31 @@
+{
+  "returnedParseType" : "java.lang.NullPointerException",
+  "finalModelText" : "[{\"id\":\"npe-001\",\"exceptionType\":\"java.lang.NullPointerException\",\"causes\":[\"可能在值为 null 的引用上调用了实例方法或访问了实例字段。\",\"可能对值为 null 的包装类型进行了自动拆箱，或访问了 null 数组。\"],\"suggestions\":[\"根据异常消息和首个相关堆栈帧定位源码表达式，逐一检查引用的实际值。\",\"回溯该值的赋值和调用路径，检查参数、返回值与初始化条件；在明确语义后增加校验或修正数据来源。\"]}]",
+  "hostToolOrder" : [ "parseStackTrace", "searchKnowledgeBase" ],
+  "source" : "deterministic local HTTP fixture; not real Ollama inference",
+  "finalMatchesActualKnowledge" : true,
+  "returnedKnowledge" : [ {
+    "id" : "npe-001",
+    "exceptionType" : "java.lang.NullPointerException",
+    "causes" : [ "可能在值为 null 的引用上调用了实例方法或访问了实例字段。", "可能对值为 null 的包装类型进行了自动拆箱，或访问了 null 数组。" ],
+    "suggestions" : [ "根据异常消息和首个相关堆栈帧定位源码表达式，逐一检查引用的实际值。", "回溯该值的赋值和调用路径，检查参数、返回值与初始化条件；在明确语义后增加校验或修正数据来源。" ]
+  } ],
+  "modelCalls" : 3,
+  "hostKnowledgeIds" : [ "npe-001" ],
+  "structuredCalls" : [ [ {
+    "id" : "p1",
+    "function" : {
+      "name" : "parseStackTrace",
+      "arguments" : { }
+    }
+  } ], [ {
+    "id" : "s1",
+    "function" : {
+      "name" : "searchKnowledgeBase",
+      "arguments" : {
+        "exceptionType" : "java.lang.NullPointerException"
+      }
+    }
+  } ] ],
+  "toolCalls" : 2
+}
