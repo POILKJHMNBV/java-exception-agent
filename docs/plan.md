@@ -29,7 +29,7 @@
 - T6.4 最终 `mvn -B -ntp verify`：2026-11-10 12:54（Asia/Shanghai），111 项、0 失败/错误/跳过，JAR 打包成功；新增 Day 4 确定性测试 40 项。固定版本和已验收需求/架构均未修改。测试使用脚本模型或本地 HTTP 夹具，不依赖 Ollama。
 - Review：执行前参数/顺序/预算、总 deadline 不重置、实际取消、残留容量、两请求隔离、数据不执行、默认不记录原始堆栈、显式类型和中文注释检查通过。23 个 Java 文件中具名类型/字段/方法及 record 组件 Javadoc 检查无缺失，匿名测试类另行人工检查；`var` 零命中，`git diff --check` 通过。
 - [确定性协议闭环证据](evidence/day4/t6-protocol-loop.json)：3 次模型请求、2 次真实工具执行，结构化调用与实际结果回传可追溯，最终文本等于实际知识结果。本证据不是 Ollama 推理或 A2/A5 验收；真实模型测试本次未运行，报告与 HTTP 契约仍属 Day 5。
-- 初次本地交付时未提交、未推送、远程 CI 未运行；用户现已验收并授权本次远程操作，实际结果待执行后记录，不借用 Day 3 CI 作为本次结果。详细任务、变更文件、Red/Green/最终命令和风险见 [Day 4 交付记录](day4-report.md)。
+- 初次本地交付时未提交、未推送、远程 CI 未运行；用户验收并授权后，提交 `36704b170ea00780c49609a3645cc334338a71e0` 已推送至 `origin/master`，[真实 CI 42763718131](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42763718131) 实际 completed / success，固定 Maven/JDK 版本校验、无 Ollama 的 verify 和报告上传均通过；[结构化证据](evidence/day4/day4-ci-run.json)。详细任务、变更文件、Red/Green/最终命令和风险见 [Day 4 交付记录](day4-report.md)。
 - 2026-11-10 按用户要求精简全部阶段证据：删除编译/测试/运行等过程日志，保留阶段报告中的命令、失败原因、结果与历史事实；保留必要闭环/CI JSON，将可复用注释检查脚本移至 `scripts/`，同步清理引用并在 AGENTS.md 固化规则。本次整理不改变业务代码和测试断言，无需新增业务 Red。
 - 验收后提交前复验：2026-11-10 13:34:06（Asia/Shanghai）执行 `mvn -B -ntp verify`，111/111，0 失败/错误/跳过，JAR 打包成功；过程输出仅临时存于 target，不重新归档。
 

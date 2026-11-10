@@ -65,9 +65,9 @@
 - `git diff --check` 通过。Review 为当前单 Agent 自查，没有委派或伪称独立评审。
 - 实测促成的是既定“取消并关闭客户端请求”决策的实现细化：改用完整正文处于可中断 JDK send 内的非流式传输适配器。没有更换框架版本或放宽时间/次数预算。
 - HTTP 取消不能保证 Ollama 立即停止底层推理；本次证明的是本地客户端退出与连接关闭。真实 qwen3.5:9b 业务行为、耗时和报告合规性仍待 Day 6；内存中的完整响应缓冲也需结合真实样本观察。
-- 初次交付远程 CI 未运行。用户现已授权本次提交、推送和远程 CI，实际结果待执行后补记；Day 3 的历史 CI 不代表本次代码通过远程 CI。
+- 初次交付远程 CI 未运行；用户验收并授权后的本次真实 [CI 42763718131](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42763718131) 已 completed / success，对应提交 `36704b170ea00780c49609a3645cc334338a71e0`，未借用 Day 3 的历史结果。
 
-下一步：完成本次已授权的提交、推送与远程 CI；Day 5 的 HTTP 契约、报告校验与错误映射仍等待用户明确启动授权。
+下一步：Day 4 已验收并完成本次提交、推送与真实 CI 核验；仅补交本文与 CI 结果归档。Day 5 的 HTTP 契约、报告校验与错误映射仍等待用户明确启动授权。
 
 ## 验收后整理与发布验证（2026-11-10）
 
@@ -75,4 +75,5 @@
 - 按本次要求删除 `docs/evidence` 下全部 21 份编译/测试/运行等过程日志；保留 2 份 Day 2 真实探针 JSON、1 份 Day 3 CI JSON、1 份 Day 4 确定性协议闭环 JSON。可复用的注释检查脚本移至 `scripts/review-java.jsh`，同步修正文档引用。
 - AGENTS.md 固化“仅保留必要验收证据、过程日志不归档、临时输出进 target、清理前保留命令与失败/成功摘要”的规则。此前的失败、修复与验证事实仍保留在阶段报告中，未修改业务逻辑、测试断言或固定版本；本次整理不新增无意义 Red。
 - 提交前 `mvn -B -ntp verify` 于 2026-11-10 13:34:06（Asia/Shanghai）通过：111 项，0 失败/错误/跳过，JAR 打包成功；完整输出仅临时存于已忽略的 target 目录。
-- 远程操作进行前核对 `origin/master` 与本地 HEAD 同为 `9a3573e04632e35473e4a3dbf860fec5d2c255a5`；提交、推送及本次真实 CI 的最终结果随后补记。
+- 远程操作进行前核对 `origin/master` 与本地 HEAD 同为 `9a3573e04632e35473e4a3dbf860fec5d2c255a5`；本次已提交并正常推送 `36704b170ea00780c49609a3645cc334338a71e0`，未强制推送。
+- [GitHub Actions 42763718131](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42763718131) 已实际 completed / success；Maven 3.8.4 安装与校验、JDK 17 版本校验、`Verify without Ollama`、报告上传均成功。[精简结构化证据](evidence/day4/day4-ci-run.json) 保留提交 SHA、运行链接、状态和步骤，不归档控制台日志。加入这份必要 CI 证据后，证据目录共 5 份 JSON、0 份过程日志。
