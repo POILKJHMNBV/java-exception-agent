@@ -1,0 +1,82 @@
+{
+  "task": "T8",
+  "date": "2026-11-10",
+  "timezone": "Asia/Shanghai",
+  "baseCommit": "171bfdd6e08779c3d52c5c4dc24925051fb3f4c4",
+  "jdk": "17.0.11",
+  "maven": "3.8.4",
+  "boot": "4.1.1",
+  "springAi": "2.0.1",
+  "ollama": "0.35.0",
+  "model": "qwen3.5:9b",
+  "modelIdPrefix": "6488c96fa5fa",
+  "coldStartBatches": [
+    1,
+    4
+  ],
+  "batches": [
+    {
+      "batch": 1,
+      "sourceBatch": "2026-11-10T13-36-38.332711700Z-a47367f0-9915-4b4e-8770-a3dcede81b1c",
+      "file": "batch-01.json",
+      "samples": 12,
+      "passed": 2,
+      "failed": 10,
+      "sha256": "9718F27C7B0B7E90D5DC5A4CC178CAB67DF4D0A9C3A3D8BBE704B7BF9B150FF2"
+    },
+    {
+      "batch": 2,
+      "sourceBatch": "2026-11-10T13-38-43.087829700Z-b6b1d05b-1087-4434-b3b0-011e67404a21",
+      "file": "batch-02.json",
+      "samples": 12,
+      "passed": 10,
+      "failed": 2,
+      "sha256": "3BA541EBFC2D647EA3B0184948BDD3B55591B35B471220148955FFCB2937B07B"
+    },
+    {
+      "batch": 3,
+      "sourceBatch": "2026-11-10T13-40-19.384656300Z-f92b2204-6adf-4297-b739-1afa4be09877",
+      "file": "batch-03.json",
+      "samples": 12,
+      "passed": 12,
+      "failed": 0,
+      "sha256": "2A6722FD25D1AD3CFC813B91F1AE4AF0105C6D31CF03D59B52C4536BC883638A"
+    },
+    {
+      "batch": 4,
+      "sourceBatch": "2026-11-10T13-42-21.950133100Z-7354aaa3-c247-4d1d-b346-5de46dbfdc86",
+      "file": "batch-04.json",
+      "samples": 12,
+      "passed": 12,
+      "failed": 0,
+      "sha256": "DC0A59C6E9557DBBBD554FF8A7FCDF4E82F49715473C30C054086200834B9821"
+    },
+    {
+      "batch": 5,
+      "sourceBatch": "2026-11-10T13-43-54.948172800Z-bd1cabeb-dfe5-4bf6-afa9-d8840ad1ec0b",
+      "file": "batch-05.json",
+      "samples": 12,
+      "passed": 12,
+      "failed": 0,
+      "sha256": "2A6CCF6BBB752B63E2456344138180731E38C0027981A769B6F41027B83F1510"
+    }
+  ],
+  "finalFiles": [
+    {
+      "path": "src/main/java/dev/exceptionagent/diagnosis/DiagnosisService.java",
+      "sha256": "053810C0E41BD8735E46A9111C03DA8C0D3B46D25F7E5409D5D59A68350B1C7D"
+    },
+    {
+      "path": "src/test/java/dev/exceptionagent/diagnosis/OllamaDiagnosisTest.java",
+      "sha256": "12279D572BFCA6A89E76483E70822B8ECF26D6532848C6E75E04643562B2B47E"
+    },
+    {
+      "path": "src/main/resources/application.properties",
+      "sha256": "C85D4776A9350A9BA34AEA72117F39196997EAD24571CDE632F7B1FFFA46655B"
+    },
+    {
+      "path": "pom.xml",
+      "sha256": "DAB3CC579E3171D30C412AF4602430DB519D086A8BDE55586DAA39344B4E2AFC"
+    }
+  ]
+}
