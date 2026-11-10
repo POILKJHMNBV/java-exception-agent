@@ -5,7 +5,7 @@ import dev.exceptionagent.tools.KnowledgeEntry;
 import dev.exceptionagent.tools.ParsedStackTrace;
 
 /**
- * 内部编排结果，不是已校验的业务报告，Day 5 必须进一步校验文本与引用。
+ * 内部编排事实与未校验模型文本；HTTP 入口必须经 ReportValidator 后才能返回业务报告。
  * @param diagnosisId 服务端关联标识
  * @param modelText 未校验的模型输出
  * @param parsed 实际工具解析结果

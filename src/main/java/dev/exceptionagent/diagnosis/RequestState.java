@@ -10,7 +10,7 @@ import dev.exceptionagent.tools.ParsedStackTrace;
 /** 一次诊断独占的状态，通过 ToolContext 传入回调，绝不作为共享 Bean。 */
 final class RequestState {
     /** 服务端产生的关联标识。 */
-    final String id = UUID.randomUUID().toString();
+    final String id;
     /** 服务端接收的原始输入，模型没有替换它的参数。 */
     final String stackTrace;
     /** 本次使用的硬限制。 */
@@ -32,6 +32,12 @@ final class RequestState {
 
     /** 绑定不可替换输入与请求开始时间。 */
     RequestState(String stackTrace, AgentLimits limits, LongSupplier clock) {
+        this(stackTrace, limits, clock, UUID.randomUUID().toString());
+    }
+
+    /** 沿用 HTTP 入口产生的关联标识，使错误和成功都能定位同一请求。 */
+    RequestState(String stackTrace, AgentLimits limits, LongSupplier clock, String id) {
+        this.id = id;
         this.stackTrace = stackTrace;
         this.limits = limits;
         this.clock = clock;
