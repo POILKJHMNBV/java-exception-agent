@@ -27,7 +27,7 @@
 - T7.2/A1：POST /api/diagnoses、严格 JSON/类型/空值校验、16,000 Unicode 码点/200 行/128 KiB 原始正文限制、统一错误及请求 ID。MockMvc 保留真实编排和两工具，仅替换模型。43 项首次有效 Red 为 HTTP 404 断言失败，Green 43/43；Review 增加实际并发、引用拒绝后的容量回收和异常链脱敏，46/46。
 - T7.3：实际内嵌服务器验证 HTTP/1.1 chunked、精确 128 KiB 可接收且多一字节 413，1/1。最终 `mvn -B -ntp verify` 于 2026-11-10 15:26:20（Asia/Shanghai）通过：188 项、0 失败/错误/跳过，JAR 打包成功，其中本阶段新增 77 项；不依赖 Ollama。
 - Review：输入/报告边界、引用真实性、两请求交错隔离、两槽位实际满载 503、失败归还容量、总 deadline 内报告校验、敏感错误脱敏、只读数据边界均通过；既有预算/超时/取消测试回归通过。32 个 Java 文件注释检查缺失 0，var 零命中，diff 空白检查通过。固定版本和已验收需求/架构不变。
-- 初次交付时未提交、未推送，远程 CI 和真实模型测试均未运行。用户于 2026-11-10 已验收并授权提交、推送及本次远程 CI，执行结果另行补充。过程输出仅存 target，证据目录没有新增过程日志。完整任务/文件、早期占位与测试草稿失败、Red/Green/最终命令和剩余风险见 [Day 5 交付记录](day5-report.md)。未启动 Day 6。
+- 初次交付时未提交、未推送，远程 CI 和真实模型测试均未运行。用户于 2026-11-10 验收并明确授权后，提交 `9ac9e8be1291ce6cfaf82c301752426c0d4f2c6c` 已推送至 origin/master，[真实 CI 42818708943](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42818708943) 实际 completed / success；Maven 3.8.4 安装、JDK/Maven 版本核验、无 Ollama 的 verify 和测试报告上传均通过。[结构化证据](evidence/day5/day5-ci-run.json) 仅保留提交关联、最终状态和步骤摘要，过程输出仍仅存 target。完整任务/文件、早期占位与测试草稿失败、Red/Green/最终命令和剩余风险见 [Day 5 交付记录](day5-report.md)。真实模型业务测试未运行，未启动 Day 6。
 - 验收后提交前复验：2026-11-10 20:43:45（Asia/Shanghai）执行 `mvn -B -ntp verify`，188/188，0 失败/错误/跳过，JAR 打包成功；过程输出仅存 target，不归档为证据。
 
 ### Day 4 执行范围（2026-11-10）

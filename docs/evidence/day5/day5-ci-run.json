@@ -1,0 +1,104 @@
+{
+  "run": {
+    "id": 42818708943,
+    "name": "deterministic-tests",
+    "event": "push",
+    "head_sha": "9ac9e8be1291ce6cfaf82c301752426c0d4f2c6c",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42818708943",
+    "run_started_at": "2026-11-10T12:47:11Z",
+    "updated_at": "2026-11-10T12:47:47Z"
+  },
+  "jobs": [
+    {
+      "id": 129838365059,
+      "name": "verify",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42818708943/job/129838365059",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-10T12:47:16Z",
+          "completed_at": "2026-11-10T12:47:17Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-10T12:47:17Z",
+          "completed_at": "2026-11-10T12:47:20Z"
+        },
+        {
+          "name": "Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-10T12:47:20Z",
+          "completed_at": "2026-11-10T12:47:21Z"
+        },
+        {
+          "name": "Install Maven 3.8.4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-10T12:47:21Z",
+          "completed_at": "2026-11-10T12:47:23Z"
+        },
+        {
+          "name": "Print and check tool versions",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-10T12:47:23Z",
+          "completed_at": "2026-11-10T12:47:25Z"
+        },
+        {
+          "name": "Verify without Ollama",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-10T12:47:25Z",
+          "completed_at": "2026-11-10T12:47:44Z"
+        },
+        {
+          "name": "Upload test reports",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-10T12:47:44Z",
+          "completed_at": "2026-11-10T12:47:45Z"
+        },
+        {
+          "name": "Post Run actions/setup-java@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13,
+          "started_at": "2026-11-10T12:47:45Z",
+          "completed_at": "2026-11-10T12:47:45Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-10T12:47:45Z",
+          "completed_at": "2026-11-10T12:47:45Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-10T12:47:45Z",
+          "completed_at": "2026-11-10T12:47:45Z"
+        }
+      ]
+    }
+  ]
+}

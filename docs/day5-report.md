@@ -47,18 +47,21 @@ complete 只表示流程完整，不代表根因已确认。没有可验证原�
 | 最终本地验证 | `mvn -B -ntp verify` | 2026-11-10 15:26:20（Asia/Shanghai），188 项，0 失败/错误/跳过，BUILD SUCCESS，可执行 JAR 打包成功；其中本阶段新增 77 项 |
 | 注释及静态 Review | `jshell scripts/review-java.jsh`、`rg -n '\bvar\b' src`、`git diff --check` | 32 个 Java 文件 Javadoc/record 组件检查，缺失 0；var 零命中；diff 无空白错误。JShell 的本机注册表偏好写入警告不影响解析检查，未更改权限或环境 |
 
-控制台过程输出只临时存于已忽略的 target，不归档为验收证据。docs/evidence 经检查仅保留历史必要闭环与 CI JSON；本阶段的确定性结果可由本报告及测试重现，无需增加重复证据文件。
+控制台过程输出只临时存于已忽略的 target，不归档为验收证据。docs/evidence 仅保留必要闭环与 CI JSON；本阶段确定性结果可由本报告及测试重现，验收后仅新增真实 CI 的结构化结果。
 
 ## Review、CI 与剩余边界
 
 - Review 已检查输入大小/类型、每请求目录隔离、引用真实性、不可变结果、先两工具后报告、固定错误脱敏、并发容量与失败释放、总 deadline 不重置、显式 Java 类型及中文注释。既有 T6 预算、取消、超时及传输故障测试全部回归通过。
 - 限额读取最多缓存 128 KiB + 1 字节，超限立即拒绝；Servlet 网络流由容器管理，后续 MVC 仅读取有界内存快照。报告校验仍在诊断槽位内，最终返回前复核原有总 deadline。
 - 本阶段未修改已验收产品需求、架构决策、固定版本、工具数量或 CI 配置；没有增加依赖。知识库损坏依旧导致启动失败，503 分类不表示启动失败的服务还能处理请求。
-- 初次本地交付时远程 CI 未运行，提交、推送未执行。2026-11-10 用户验收后已授权本次提交、推送和远程 CI，实际执行结果见后续记录；Day 4 的历史 CI 不代表本次修改通过。
+- 初次本地交付时远程 CI 未运行，提交、推送未执行。2026-11-10 用户验收后已完成本次提交、推送，真实 CI completed / success，详见下方提交及 CI 记录。
 - **真实 Ollama 业务验收：未运行。** JSON 输出稳定性、三类样例各三次、未知异常及恶意指令的真实模型表现仍属 Day 6。证据引用通过不能证明自然语言推理正确，原因假设仍需人工核对。
 - 本地 T7/A1/A5 工作已完成，用户于 2026-11-10 明确验收通过，并单独明确授权本次提交、推送及远程 CI。未启动 Day 6。
 
 ## 验收后提交与 CI 记录
 
 - 提交前复验：2026-11-10 20:43:45（Asia/Shanghai），`mvn -B -ntp verify` 实际 188/188，0 失败/错误/跳过，可执行 JAR 打包成功。代码与已验收范围一致，未新增业务变更；本次文档更新无需新增 Red。
-- 提交前检查：`git diff --check` 通过；远程 master 与本地基线 `a3d88b0fa47a56150fcdd4837ded902e36de1e99` 一致。实际提交、推送及 CI 完成后补充对应 SHA 和运行链接。
+- 提交前检查：`git diff --check` 通过；远程 master 与本地基线 `a3d88b0fa47a56150fcdd4837ded902e36de1e99` 一致。
+- 已提交并推送至 origin/master：`9ac9e8be1291ce6cfaf82c301752426c0d4f2c6c`，提交标题 `Complete accepted Day 5 diagnosis API and verified reports`，包含本阶段 14 个文件。
+- [真实 GitHub Actions 42818708943](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42818708943) 的 head_sha 与上述提交完全一致，event 为 push，实际 completed / success；verify job、Maven 3.8.4 安装、工具版本校验、Verify without Ollama、测试报告上传均 success。[必要结构化证据](evidence/day5/day5-ci-run.json) 保留真实运行链接、提交 SHA、最终状态和步骤摘要，不包含构建过程日志。
+- CI 结果归档以单独文档提交补充，不更改已验收业务代码或测试。Day 6 仍未启动。
