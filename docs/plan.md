@@ -29,7 +29,8 @@
 - 命令草稿发现 PowerShell 将未引用的 `-Dfile.encoding=UTF-8` 误解析为主类参数；加引号后 Java 版本检查及完整前台启动/curl 故障命令复验通过。此失败属于文档命令，不计业务 Red。JShell 本机注册表偏好警告不影响注释检查。历史失败与命令均保留，详情见 [Day 7 报告](day7-report.md)。
 - 风险：本次 NPE/IAE 仍有未经源码证实的参数来源/null 备选，NFE 泛化列出范围溢出；引用有效不保证推理正确。维持 Day 6 语义局限及本机使用边界，没有放宽要求或更改提示词。完整真实 profile 本阶段未重跑，真实闭环复用已验收且哈希一致的 Day 6 记录，并增加五种真实 HTTP 复验。
 - 初次交付未提交、未推送、远程 CI 未运行。Day 6 CI 42829839907 success 仅为历史结果；当前源码、测试、POM、工作流与其提交一致。用户于 2026-11-11 明确验收 Day 7 并授权本次提交、推送和远程 CI。
-- 验收后提交前复验：2026-11-11 13:19:17（Asia/Shanghai）执行 `mvn -B -ntp verify`，188/188、0 失败/错误/跳过，JAR 打包成功。源文件与已验收模型证据哈希一致，未重复运行真实模型。远程 master 与本地基线同为 `0a624171cf45c43161789c755e8a1be50bf9a87d`；提交及本次 CI 结果待执行后记录。
+- 验收后提交前复验：2026-11-11 13:19:17（Asia/Shanghai）执行 `mvn -B -ntp verify`，188/188、0 失败/错误/跳过，JAR 打包成功。源文件与已验收模型证据哈希一致，未重复运行真实模型。推送前远程 master 与本地基线同为 `0a624171cf45c43161789c755e8a1be50bf9a87d`。
+- Day 7 交付已提交并推送至 origin/master：`4647fa6cbcb9b6e78f485af36f2edda254ef1f4b`；[真实 CI 42965894286](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42965894286) completed / success。固定 Maven/JDK 核验、无 Ollama 的 verify、测试报告上传均成功；[结构化证据](evidence/day7/day7-ci-run.json) 仅保留提交关联、状态及步骤摘要。本次结果归档不更改业务代码或已验收要求。
 
 ### Day 6 执行范围（2026-11-10）
 

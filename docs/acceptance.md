@@ -12,8 +12,8 @@
 | A4 本地知识库 | [KnowledgeBaseTest](../src/test/java/dev/exceptionagent/tools/KnowledgeBaseTest.java) 45 项；[三类静态知识](../src/main/resources/knowledge/exceptions.json)。精确类型、稳定 ID 排序、最多三项、未知空命中、坏资源/重复 ID/非法查询/不可变结果/资源关闭 | Day 7 回归 45/45。坏资源在启动时失败；503 的知识不可用错误码映射另由 API 测试覆盖，不将两者混淆 |
 | A5 报告证据 | [ReportValidatorTest](../src/test/java/dev/exceptionagent/diagnosis/ReportValidatorTest.java) 30 项，另有 API 真正业务链验证。拒绝非法 JSON、额外事实字段、重复字段、伪造/跨请求引用；类型、证据和状态由服务端事实生成；不确定性必填 | Day 7 回归 30/30，五份真实 HTTP 报告的输入行/知识全文/引用也逐项核对。结构与引用校验通过；自然语言推理有保留，详见下方局限 |
 | A6 预算、超时与隔离 | [DiagnosisServiceTest](../src/test/java/dev/exceptionagent/diagnosis/DiagnosisServiceTest.java) 28 项、[DiagnosisCancellationTest](../src/test/java/dev/exceptionagent/diagnosis/DiagnosisCancellationTest.java) 6 项、[OllamaTransportTest](../src/test/java/dev/exceptionagent/diagnosis/OllamaTransportTest.java) 6 项。含批量/重复计数、白名单/错参/越序、缺工具、无重试、取消、剩余总时限、残留容量、跨请求隔离 | Day 7 回归 40/40；固定 4 工具/5 模型、120 秒总时限/60 秒模型/1 秒工具、3 秒连接、两槽位。传输测试断言真实 socket EOF，HTTP 层另覆盖满载 503。取消不保证 Ollama 底层推理立即结束 |
-| A7 无 Ollama 的 CI | [POM](../pom.xml) 默认 `!ollama`，profile 显式包含真实集合；[工作流](../.github/workflows/ci.yml) 固定 JDK 17 / Maven 3.8.4，仅运行默认 verify，不安装/启动 Ollama | 已有真实 [Day 6 CI 42829839907](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42829839907) completed / success，提交 `70a0b4bb328f4ebaeac87fdc2ebf74621b6eb55b`，[归档](evidence/day6/day6-ci-run.json)。与当前工作树 src/POM/workflow 一致。**Day 7 远程 CI 未运行**，须验收及明确授权后验证本次提交 |
-| A8 TDD、Review 与演示 | 历史 Red/Green 索引如下；[README](../README.md) 提供构建/启动/curl/故障/真实模型复验；[Day 7 报告](day7-report.md) 记录本次 Review、验证和偏差 | 本地交付资料齐全；188 项确定性测试通过、9 项 HTTP 演示通过。历史失败保留。本次提交/推送/远程 CI 未执行；此项远程部分仍待明确授权，不标为本次 CI 全绿 |
+| A7 无 Ollama 的 CI | [POM](../pom.xml) 默认 `!ollama`，profile 显式包含真实集合；[工作流](../.github/workflows/ci.yml) 固定 JDK 17 / Maven 3.8.4，仅运行默认 verify，不安装/启动 Ollama | 验收并授权后，本次 [Day 7 CI 42965894286](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42965894286) completed / success，提交 `4647fa6cbcb9b6e78f485af36f2edda254ef1f4b`，[归档](evidence/day7/day7-ci-run.json)。固定版本核验、Verify without Ollama 和报告上传均成功 |
+| A8 TDD、Review 与演示 | 历史 Red/Green 索引如下；[README](../README.md) 提供构建/启动/curl/故障/真实模型复验；[Day 7 报告](day7-report.md) 记录本次 Review、验证和偏差 | 本地交付资料齐全；188 项确定性测试通过、9 项 HTTP 演示通过。历史失败保留。用户于 2026-11-11 验收后，本次交付已提交/推送且真实远程 CI 通过；结果与提交一一关联 |
 
 188 项 = HTTP 47 + 报告 30 + 编排/资源/传输 40 + 解析 24 + 知识库 45 + 应用启动 1 + 确定性 ChatClient 接线 1。没有跳过确定性用例；本机存在 Ollama 也不会使默认集合启用真实标签。
 
@@ -32,7 +32,7 @@
 | HTTP/映射 / T7.2 | 有效 Red 为 43 项 HTTP 404 断言失败 → 43/43，Review 后 46/46；测试草稿编译错误不计业务 Red | `mvn -B -ntp "-Dtest=DiagnosisApiTest" test`；[Day 5](day5-report.md) |
 | 真实模型 / T8 | 批次 01：2/12（7 INVALID_REPORT、3 MISSING_TOOLS）；02：10/12（两次 Markdown 围栏）；03–05：每批 12/12。只调整提示词，没有放宽校验 | `mvn -B -ntp -Pollama-it "-Dtest=OllamaDiagnosisTest" test`，最终完整 profile 201/201；[Day 6](day6-report.md) 与 [全部批次清单](evidence/day6/manifest.json) |
 
-## Review 结论与未完成部分
+## Review 结论与保留局限
 
 本次为单 Agent 自查，未委派或声称独立评审。已核对边界、参数白名单、真实回调、每请求状态、取消及容量回收、严格报告引用、只读资源、显式 Java 类型与中文注释。未发现本阶段需要修复的确定性业务缺陷；未修改已验收需求、架构、固定版本或硬预算。
 
@@ -40,4 +40,4 @@
 
 本机短样例不足以证明所有输入、注入和并发真实推理稳定；总时限从诊断服务入口开始，不包括上传正文；模型响应完整缓冲在内存，MVP 面向本机使用。知识库只有三类静态条目；知识坏文件阻止启动。HTTP 取消无法证明 Ollama 立即停止推理。
 
-上述表格的远程状态为初次交付快照。用户于 2026-11-11 验收并授权本次提交、推送和远程 CI；提交前默认 verify 再次 188/188 通过，远程结果待执行后更新。完整真实 profile 未重跑；真实模型闭环依赖已验收且哈希一致的 Day 6 记录，另有本次真实 HTTP 复验。历史 CI 不能代替本次提交关联的验证。
+用户于 2026-11-11 验收并授权本次提交、推送和远程 CI；提交前默认 verify 再次 188/188 通过，本次提交 `4647fa6cbcb9b6e78f485af36f2edda254ef1f4b` 的真实 CI 已成功。完整真实 profile 未重跑；真实模型闭环依赖已验收且哈希一致的 Day 6 记录，另有本次真实 HTTP 复验。以上远程结果使用本次提交关联的运行，未借用历史 CI。

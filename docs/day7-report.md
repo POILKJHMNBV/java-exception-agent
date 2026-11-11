@@ -67,4 +67,6 @@
 - 提交前 `mvn -B -ntp verify` 于 13:19:17（Asia/Shanghai）通过：188/188，0 失败/错误/跳过，JAR 打包成功。过程输出仅在 target；真实模型未重复运行。
 - 提交前 Review 再次核对文档、合成样例、历史模型与 HTTP 证据的完整性及哈希；生产源码、测试、POM 和工作流未变。本次无新业务 Red/Green。
 - 初次沙箱内 Git SSH 信号管道和 curl TLS 凭据调用失败；在授权范围内使用沙箱外调用后，远程核对成功。未安装额外 CLI、未更改 Git/网络配置。远程 master 与本地基线同为 `0a624171cf45c43161789c755e8a1be50bf9a87d`。
-- 提交、推送和本次 CI 待执行后记录真实提交及运行结果，不提前标记通过。
+- 已提交并推送至 origin/master：`4647fa6cbcb9b6e78f485af36f2edda254ef1f4b`，标题 `Complete accepted Day 7 review and delivery documentation`，共 10 个文件；正常推送，未重置历史或强制推送。
+- 本次 [GitHub Actions 42965894286](https://github.com/POILKJHMNBV/java-exception-agent/actions/runs/42965894286) 实际 completed / success，head_sha 与上述提交一致；Maven 3.8.4 安装、JDK/Maven 版本核验、Verify without Ollama 和报告上传全部 success。[CI 结构化证据](evidence/day7/day7-ci-run.json) 仅保留运行/提交关联和步骤摘要，完整过程输出仅存 target。
+- CI 结果以本次交付的后续文档提交归档，不更改业务源码、测试或构建配置；没有重复运行真实模型，也没有使用历史 CI 代替本次验证。七个阶段均已获用户验收，已记录的模型语义及本机使用局限仍然保留。
