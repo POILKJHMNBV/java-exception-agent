@@ -1,0 +1,1 @@
+{"stackTrace":"java.lang.IllegalArgumentException: age must be non-negative\n\tat example.UserService.setAge(UserService.java:27)\n\tat example.Main.main(Main.java:11)"}

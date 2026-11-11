@@ -1,0 +1,384 @@
+{
+  "task": "T9.2",
+  "startedAt": "2026-11-10T22:17:59.8877460+08:00",
+  "scope": "Packaged application HTTP smoke; no per-tool instrumentation. A2 uses Day 6 archived protocol evidence.",
+  "baseCommit": "0a624171cf45c43161789c755e8a1be50bf9a87d",
+  "jarSha256": "AB32F6A1332568DB6147B9E67920A32A12677D2E80F28C5DFC63C78CA8A5AC36",
+  "results": [
+    {
+      "name": "npe",
+      "input": "@examples/npe.json",
+      "port": 8080,
+      "contentType": "application/json",
+      "httpStatus": 200,
+      "curlExit": 0,
+      "elapsedMs": 5241,
+      "response": {
+        "diagnosisId": "8522eed3-154a-4597-9b19-00f0f66b2e6a",
+        "status": "complete",
+        "exceptionType": "java.lang.NullPointerException",
+        "evidence": [
+          {
+            "id": "stack-1",
+            "source": "stackTrace",
+            "reference": "1",
+            "text": "java.lang.NullPointerException: Cannot invoke \"String.length()\" because \"name\" is null"
+          },
+          {
+            "id": "stack-2",
+            "source": "stackTrace",
+            "reference": "2",
+            "text": "\tat example.UserService.length(UserService.java:42)"
+          },
+          {
+            "id": "stack-3",
+            "source": "stackTrace",
+            "reference": "3",
+            "text": "\tat example.Main.main(Main.java:10)"
+          },
+          {
+            "id": "kb-npe-001",
+            "source": "knowledgeBase",
+            "reference": "npe-001",
+            "text": "{\"id\":\"npe-001\",\"exceptionType\":\"java.lang.NullPointerException\",\"causes\":[\"可能在值为 null 的引用上调用了实例方法或访问了实例字段。\",\"可能对值为 null 的包装类型进行了自动拆箱，或访问了 null 数组。\"],\"suggestions\":[\"根据异常消息和首个相关堆栈帧定位源码表达式，逐一检查引用的实际值。\",\"回溯该值的赋值和调用路径，检查参数、返回值与初始化条件；在明确语义后增加校验或修正数据来源。\"]}"
+          }
+        ],
+        "possibleCauses": [
+          {
+            "description": "可能原因（待验证）：可能在 UserService.length 方法中调用了 name 对象的 length() 方法，但 name 为 null",
+            "evidenceIds": [
+              "stack-2",
+              "kb-npe-001"
+            ]
+          },
+          {
+            "description": "可能原因（待验证）：调用 UserService.length 时传入的 name 参数未初始化或已被置空",
+            "evidenceIds": [
+              "stack-3",
+              "kb-npe-001"
+            ]
+          }
+        ],
+        "suggestions": [
+          {
+            "action": "检查 UserService.java:42 处 name 变量的赋值来源和是否为 null",
+            "evidenceIds": [
+              "stack-2",
+              "kb-npe-001"
+            ]
+          },
+          {
+            "action": "回溯 Main.java:10 调用时传入的 name 参数值，确认其初始化逻辑",
+            "evidenceIds": [
+              "stack-3",
+              "kb-npe-001"
+            ]
+          }
+        ],
+        "uncertainties": [
+          "缺少 UserService.length 方法的源码实现细节，无法确定 name 变量的具体来源和校验逻辑",
+          "缺少源码与运行时数据，原因假设仍需验证。"
+        ]
+      },
+      "outcome": "PASS"
+    },
+    {
+      "name": "iae",
+      "input": "@examples/iae.json",
+      "port": 8080,
+      "contentType": "application/json",
+      "httpStatus": 200,
+      "curlExit": 0,
+      "elapsedMs": 2364,
+      "response": {
+        "diagnosisId": "a3915bdb-fc8f-401d-b752-b825b2534606",
+        "status": "complete",
+        "exceptionType": "java.lang.IllegalArgumentException",
+        "evidence": [
+          {
+            "id": "stack-1",
+            "source": "stackTrace",
+            "reference": "1",
+            "text": "java.lang.IllegalArgumentException: age must be non-negative"
+          },
+          {
+            "id": "stack-2",
+            "source": "stackTrace",
+            "reference": "2",
+            "text": "\tat example.UserService.setAge(UserService.java:27)"
+          },
+          {
+            "id": "stack-3",
+            "source": "stackTrace",
+            "reference": "3",
+            "text": "\tat example.Main.main(Main.java:11)"
+          },
+          {
+            "id": "kb-iae-001",
+            "source": "knowledgeBase",
+            "reference": "iae-001",
+            "text": "{\"id\":\"iae-001\",\"exceptionType\":\"java.lang.IllegalArgumentException\",\"causes\":[\"可能传入了不满足方法约定的参数值、范围或参数组合。\"],\"suggestions\":[\"检查异常消息、抛出位置和被调用方法的参数约定。\",\"记录可复现输入并验证范围、格式与参数组合；缺少源码和运行值时无法确定具体违规参数。\"]}"
+          }
+        ],
+        "possibleCauses": [
+          {
+            "description": "可能原因（待验证）：可能传入了不满足方法约定的参数值，导致 age 必须为非负数的约束被违反",
+            "evidenceIds": [
+              "stack-2",
+              "kb-iae-001"
+            ]
+          },
+          {
+            "description": "可能原因（待验证）：可能在调用 setAge 方法时传递了负数或 null 作为 age 参数",
+            "evidenceIds": [
+              "stack-3",
+              "kb-iae-001"
+            ]
+          }
+        ],
+        "suggestions": [
+          {
+            "action": "检查 UserService.setAge 方法的参数约定和 Main.main 中传入的 age 值",
+            "evidenceIds": [
+              "kb-iae-001"
+            ]
+          },
+          {
+            "action": "记录可复现输入并验证 age 参数的范围、格式与来源",
+            "evidenceIds": [
+              "kb-iae-001"
+            ]
+          }
+        ],
+        "uncertainties": [
+          "缺少 UserService.java 和 Main.java 的源码，无法确认 age 变量的具体赋值逻辑和约束检查实现",
+          "缺少源码与运行时数据，原因假设仍需验证。"
+        ]
+      },
+      "outcome": "PASS"
+    },
+    {
+      "name": "nfe",
+      "input": "@examples/nfe.json",
+      "port": 8080,
+      "contentType": "application/json",
+      "httpStatus": 200,
+      "curlExit": 0,
+      "elapsedMs": 2341,
+      "response": {
+        "diagnosisId": "bcf6beed-4a89-46c0-b063-e8b68891a8aa",
+        "status": "complete",
+        "exceptionType": "java.lang.NumberFormatException",
+        "evidence": [
+          {
+            "id": "stack-1",
+            "source": "stackTrace",
+            "reference": "1",
+            "text": "java.lang.NumberFormatException: For input string: \"12x\""
+          },
+          {
+            "id": "stack-2",
+            "source": "stackTrace",
+            "reference": "2",
+            "text": "\tat java.base/java.lang.Integer.parseInt(Integer.java:668)"
+          },
+          {
+            "id": "stack-3",
+            "source": "stackTrace",
+            "reference": "3",
+            "text": "\tat example.Config.readPort(Config.java:18)"
+          },
+          {
+            "id": "kb-nfe-001",
+            "source": "knowledgeBase",
+            "reference": "nfe-001",
+            "text": "{\"id\":\"nfe-001\",\"exceptionType\":\"java.lang.NumberFormatException\",\"causes\":[\"可能尝试把不符合目标数值类型格式或进制要求的字符串转换为数值。\",\"可能输入数值超出了目标类型允许的范围。\"],\"suggestions\":[\"定位实际调用的数值解析方法，核对原始字符串、进制和目标类型范围。\",\"用相同输入构造最小复现，按业务规则处理空串、空白与非法字符；不要未经确认就修改输入或吞掉解析异常。\"]}"
+          }
+        ],
+        "possibleCauses": [
+          {
+            "description": "可能原因（待验证）：可能尝试把不符合目标数值类型格式或进制要求的字符串转换为数值。",
+            "evidenceIds": [
+              "stack-3",
+              "kb-nfe-001"
+            ]
+          },
+          {
+            "description": "可能原因（待验证）：可能输入数值超出了目标类型允许的范围。",
+            "evidenceIds": [
+              "stack-3",
+              "kb-nfe-001"
+            ]
+          }
+        ],
+        "suggestions": [
+          {
+            "action": "定位实际调用的数值解析方法，核对原始字符串、进制和目标类型范围。",
+            "evidenceIds": [
+              "kb-nfe-001"
+            ]
+          },
+          {
+            "action": "用相同输入构造最小复现，按业务规则处理空串、空白与非法字符；不要未经确认就修改输入或吞掉解析异常。",
+            "evidenceIds": [
+              "kb-nfe-001"
+            ]
+          }
+        ],
+        "uncertainties": [
+          "缺少 Config.java 源码和运行数据，无法确认 readPort 方法的参数来源和业务上下文",
+          "缺少源码与运行时数据，原因假设仍需验证。"
+        ]
+      },
+      "outcome": "PASS"
+    },
+    {
+      "name": "unknown",
+      "input": "@examples/unknown.json",
+      "port": 8080,
+      "contentType": "application/json",
+      "httpStatus": 200,
+      "curlExit": 0,
+      "elapsedMs": 1956,
+      "response": {
+        "diagnosisId": "7acb89d7-d4ae-4057-9227-71d370c63231",
+        "status": "partial",
+        "exceptionType": "example.WidgetException",
+        "evidence": [
+          {
+            "id": "stack-1",
+            "source": "stackTrace",
+            "reference": "1",
+            "text": "example.WidgetException: widget state unavailable"
+          },
+          {
+            "id": "stack-2",
+            "source": "stackTrace",
+            "reference": "2",
+            "text": "\tat example.Widget.run(Widget.java:9)"
+          }
+        ],
+        "possibleCauses": [],
+        "suggestions": [
+          {
+            "action": "查看 example.Widget.run 方法的源码，确认 widget state unavailable 的具体含义和触发条件",
+            "evidenceIds": [
+              "stack-2"
+            ]
+          },
+          {
+            "action": "检查 Widget.java:9 处的代码逻辑，了解获取 widget state 的方式及可能的失败原因",
+            "evidenceIds": [
+              "stack-2"
+            ]
+          },
+          {
+            "action": "确认调用方是否正确初始化了 widget 状态，是否存在并发访问或状态过期问题",
+            "evidenceIds": [
+              "stack-2"
+            ]
+          }
+        ],
+        "uncertainties": [
+          "缺少 example.WidgetException 的源码定义和异常处理逻辑",
+          "缺少 widget state 的数据结构和生命周期信息",
+          "知识未命中，无法获取该异常的已知触发场景",
+          "缺少源码与运行时数据，原因假设仍需验证。",
+          "本地知识库未命中。"
+        ]
+      },
+      "outcome": "PASS"
+    },
+    {
+      "name": "unrecognized",
+      "input": "@examples/unrecognized.json",
+      "port": 8080,
+      "contentType": "application/json",
+      "httpStatus": 200,
+      "curlExit": 0,
+      "elapsedMs": 1237,
+      "response": {
+        "diagnosisId": "2bf276e1-6360-4d14-989b-71e2408e5142",
+        "status": "partial",
+        "exceptionType": null,
+        "evidence": [],
+        "possibleCauses": [],
+        "suggestions": [
+          {
+            "action": "无法解析异常堆栈，建议提供标准的 Java 异常堆栈信息以便诊断",
+            "evidenceIds": []
+          }
+        ],
+        "uncertainties": [
+          "输入文本被识别为普通文本而非 Java 异常堆栈，缺少源码和运行数据，当前证据不足以确定原因",
+          "缺少源码与运行时数据，原因假设仍需验证。",
+          "无法识别异常主因类型。",
+          "本地知识库未命中。",
+          "输入第 1 行存在解析局限：UNRECOGNIZED_LINE"
+        ]
+      },
+      "outcome": "PASS"
+    },
+    {
+      "name": "invalid",
+      "input": "{}",
+      "port": 8080,
+      "contentType": "application/json",
+      "httpStatus": 400,
+      "curlExit": 0,
+      "elapsedMs": 14,
+      "response": {
+        "diagnosisId": "a20fb58c-926f-4dde-be25-99def6fe6a2c",
+        "code": "INVALID_REQUEST",
+        "message": "请求必须包含非空字符串 stackTrace，且为合法 JSON。"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "name": "media-type",
+      "input": "@examples/npe.json",
+      "port": 8080,
+      "contentType": "text/plain",
+      "httpStatus": 415,
+      "curlExit": 0,
+      "elapsedMs": 12,
+      "response": {
+        "diagnosisId": "9d968907-700c-4ff4-9bf0-4f8c5fa64f48",
+        "code": "UNSUPPORTED_MEDIA_TYPE",
+        "message": "仅支持 application/json。"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "name": "oversized",
+      "input": "@target/oversized.json",
+      "port": 8080,
+      "contentType": "application/json",
+      "httpStatus": 413,
+      "curlExit": 0,
+      "elapsedMs": 14,
+      "response": {
+        "diagnosisId": "bbc1f1f2-0aca-4aa5-9079-a1783eb9eed5",
+        "code": "INPUT_TOO_LARGE",
+        "message": "请求超过字节、码点或行数限制。"
+      },
+      "outcome": "PASS"
+    },
+    {
+      "name": "unavailable",
+      "input": "@examples/npe.json",
+      "port": 18081,
+      "contentType": "application/json",
+      "httpStatus": 503,
+      "curlExit": 0,
+      "elapsedMs": 167,
+      "response": {
+        "diagnosisId": "1e02493c-fe78-4247-bf8d-ad34360e5a85",
+        "code": "MODEL_UNAVAILABLE",
+        "message": "本地模型服务不可达。"
+      },
+      "outcome": "PASS"
+    }
+  ],
+  "completedAt": "2026-11-10T22:18:17.4287847+08:00"
+}

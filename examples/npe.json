@@ -1,0 +1,1 @@
+{"stackTrace":"java.lang.NullPointerException: Cannot invoke \"String.length()\" because \"name\" is null\n\tat example.UserService.length(UserService.java:42)\n\tat example.Main.main(Main.java:10)"}

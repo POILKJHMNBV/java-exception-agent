@@ -1,0 +1,1 @@
+{"stackTrace":"example.WidgetException: widget state unavailable\n\tat example.Widget.run(Widget.java:9)"}

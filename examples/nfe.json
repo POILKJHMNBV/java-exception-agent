@@ -1,0 +1,1 @@
+{"stackTrace":"java.lang.NumberFormatException: For input string: \"12x\"\n\tat java.base/java.lang.Integer.parseInt(Integer.java:668)\n\tat example.Config.readPort(Config.java:18)"}
